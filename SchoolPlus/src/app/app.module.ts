@@ -16,10 +16,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { TasksComponent } from './tasks/tasks.component';
-import { TimetableComponent } from './timetable/timetable.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { TimetableComponent } from './timetable/timetable.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSlideToggleModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

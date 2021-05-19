@@ -1,11 +1,13 @@
-.full-width-table {
-  width: 100%;
+.grid-container {
+  margin: 20px;
 }
-
-.mat-elevation-z8{
+.example-container {
+  height: 400px;
+  overflow: auto;
   margin: 20px;
 }
 
-th{
-  text-align: center;
+table {
+  width: 100%;
 }
+
