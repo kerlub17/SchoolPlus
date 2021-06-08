@@ -1,6 +1,57 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="5" rowHeight="250px">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Heutiger Stundenplan
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+          <div class="example-container mat-elevation-z8">
+
+            <table mat-table [dataSource]="dataSource">
+
+              <!-- Position Stunde -->
+              <ng-container matColumnDef="stunde">
+                <th mat-header-cell *matHeaderCellDef> Std. </th>
+                <td mat-cell *matCellDef="let element"> {{element.stunde}} </td>
+              </ng-container>
+
+              <!-- Name Zeit -->
+              <ng-container matColumnDef="zeit">
+                <th mat-header-cell *matHeaderCellDef> Zeit </th>
+                <td mat-cell *matCellDef="let element"> {{element.zeit}} </td>
+              </ng-container>
+
+              <!-- Weight Fach -->
+              <ng-container matColumnDef="fach">
+                <th mat-header-cell *matHeaderCellDef> Fach </th>
+                <td mat-cell *matCellDef="let element"> {{element.fach}} </td>
+              </ng-container>
+
+              <!-- Symbol Lehrkraft -->
+              <ng-container matColumnDef="lehrkraft">
+                <th mat-header-cell *matHeaderCellDef> Lehrkraft </th>
+                <td mat-cell *matCellDef="let element"> {{element.lehrkraft}} </td>
+              </ng-container>
+
+              <!-- Symbol Raum -->
+              <ng-container matColumnDef="raum">
+                <th mat-header-cell *matHeaderCellDef> Raum </th>
+                <td mat-cell *matCellDef="let element"> {{element.raum}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true "></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  </mat-grid-list>
+
+  <!--<mat-grid-list cols="5" rowHeight="250px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -13,5 +64,5 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list>-->
 </div>

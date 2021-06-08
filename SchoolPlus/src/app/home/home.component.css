@@ -3,7 +3,7 @@
 }
 
 .dashboard-card {
-  position: absolute;
+
   top: 15px;
   left: 15px;
   right: 15px;
@@ -19,3 +19,18 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.grid-container {
+  margin: 20px;
+}
+.example-container {
+  height: 400px;
+  overflow: auto;
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+
