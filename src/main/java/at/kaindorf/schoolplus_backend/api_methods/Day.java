@@ -80,21 +80,20 @@ public class Day
         }
 
         System.out.println("hello");
-//        System.out.println(response.toString());
-//        if(response.toString().split("\"result\": [")[1].length() != 1)
-//        {
-//          String[] helper = response.toString().substring(response.toString().indexOf("\"result\": [")+13,response.toString().length()-2).replace("},{ \"id\"","}#;#{\"id\"").split("#;#");
-//          System.out.println(helper[0]);
-//          System.out.println(helper[helper.length-1]);
-//
-//          List<Lesson> day = new LinkedList<>();
-//          for (int i = 0; i < helper.length; i++)
-//          {
-//            day.add(om.readValue(helper[i], Lesson.class));
-//            System.out.println(day.get(i));
-//          }
-//          SchoolPlusController.setDay(day);
-//        }
+        if(response.toString().split("\"result\":")[1].length()>5);
+        {
+            System.out.println(12312351);
+          String[] helper = response.toString().substring(response.toString().indexOf("\"result\":")+10,response.toString().length()-2).replace("},{\"id\"","}#;#{\"id\"").split("#;#");
+          System.out.println(helper[0]);
+
+          List<Lesson> day = new LinkedList<>();
+          for (int i = 0; i < helper.length; i++)
+          {
+            day.add(om.readValue(helper[i], Lesson.class));
+            System.out.println(day.get(i));
+          }
+          SchoolPlusController.setDay(day);
+        }
 
         con.disconnect();
         return response.toString();

@@ -8,6 +8,7 @@ package at.kaindorf.schoolplus_backend.beans;
 import at.kaindorf.schoolplus_backend.SchoolPlusController;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 
 /**
  *
@@ -34,18 +35,60 @@ public class Lesson
   {
     this.id = id;
     this.date = date;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.klasse = kl;
-    this.teacher = te;
-    for (int i = 0; i < teacher.length; i++)
+
+    if(startTime.length()==3)
     {
-      teacher[0] = SchoolPlusController.getTeacherById(teacher[0].getId());
+      this.startTime = "0"+startTime;
     }
-    this.subject = su;
-    this.room = ro;
+    else
+    {
+      this.startTime = startTime;
+    }
+
+    if(endTime.length()==3)
+    {
+      this.endTime = "0"+endTime;
+    }
+    else
+    {
+      this.endTime = endTime;
+    }
+
+    for (int i = 0; i < kl.length; i++)
+    {
+      klasse[i] = SchoolPlusController.getKlasseById(kl[i].getId());
+    }
+
+    for (int i = 0; i < te.length; i++)
+    {
+      teacher[i] = SchoolPlusController.getTeacherById(te[i].getId());
+    }
+
+    for (int i = 0; i < su.length; i++)
+    {
+      subject[i] = SchoolPlusController.getSubjectById(su[i].getId());
+    }
+
+    for (int i = 0; i < ro.length; i++)
+    {
+      room[i] = SchoolPlusController.getRoomById(ro[i].getId());
+    }
+
     this.activityType = activityType;
   }
-  
-  
+
+  @Override
+  public String toString() {
+    return "Lesson{" +
+            "id=" + id +
+            ", date='" + date + '\'' +
+            ", startTime='" + startTime + '\'' +
+            ", endTime='" + endTime + '\'' +
+            ", klasse=" + Arrays.toString(klasse) +
+            ", teacher=" + Arrays.toString(teacher) +
+            ", subject=" + Arrays.toString(subject) +
+            ", room=" + Arrays.toString(room) +
+            ", activityType='" + activityType + '\'' +
+            '}';
+  }
 }

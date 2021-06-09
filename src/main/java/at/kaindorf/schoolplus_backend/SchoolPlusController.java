@@ -316,37 +316,33 @@ public class SchoolPlusController
       }
       return error(); 
     }
-    
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/test")
-    public String test(@RequestParam(value = "type", defaultValue = "1") String type)
-    {
-      if(type.equals("1"))
-      {
-        return "{\n" +
+
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/test")
+  public String test()
+  {
+    return "[{\n" +
             "  \"time\":\"15:35 - 16:20\",\n" +
-            "  \"subject\":\n" +
-            "  {\n" +
-            "    \"name\":\"POS\",\n" +
-            "    \"longName\":\"Programmieren und Software Engineering\"\n" +
-            "  },\n" +
+            "  \"subject\":\"POS;Programmieren und Software Engineering\",\n" +
             "  \"room\":\"4BHIF\",\n" +
             "  \"teacher\":\"Schiffermüller Heinz, Paulus Dietmar\",\n" +
             "  \"activityType\":\"Unterricht\"\n" +
-            "}";
-      }
-      else if(type.equals("2"))
-      {
-        return "{\n" +
-              "  \"time\":\"15:35 - 16:20\",\n" +
-              "  \"subject\":\"POS;Programmieren und Software Engineering\",\n" +
-              "  \"room\":\"4BHIF\",\n" +
-              "  \"teacher\":\"Schiffermüller Heinz, Paulus Dietmar\",\n" +
-              "  \"activityType\":\"Unterricht\"\n" +
-              "}";
-      }
-      return error();
-    }
+            "},\n"+
+            "{\n" +
+            "  \"time\":\"15:35 - 16:20\",\n" +
+            "  \"subject\":\"POS;Programmieren und Software Engineering\",\n" +
+            "  \"room\":\"4BHIF\",\n" +
+            "  \"teacher\":\"Schiffermüller Heinz, Paulus Dietmar\",\n" +
+            "  \"activityType\":\"Unterricht\"\n" +
+            "},\n"+
+            "{\n" +
+            "  \"time\":\"15:35 - 16:20\",\n" +
+            "  \"subject\":\"POS;Programmieren und Software Engineering\",\n" +
+            "  \"room\":\"4BHIF\",\n" +
+            "  \"teacher\":\"Schiffermüller Heinz, Paulus Dietmar\",\n" +
+            "  \"activityType\":\"Unterricht\"\n" +
+            "}]";
+  }
     
     @GetMapping("/error")
     public String error()
