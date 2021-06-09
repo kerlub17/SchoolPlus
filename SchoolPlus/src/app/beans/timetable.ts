@@ -3,4 +3,5 @@ export class Timetable {
   subject: string = "";
   room: string = "";
   teacher: string = "";
+  activityType: string = "";
 }

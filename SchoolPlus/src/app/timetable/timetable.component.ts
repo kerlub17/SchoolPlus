@@ -8,7 +8,7 @@ import {Timetable} from "../beans/timetable";
   styleUrls: ['./timetable.component.css']
 })
 export class TimetableComponent implements OnInit{
-  displayedColumns = ['hour', 'time', 'subject', 'room', 'teacher'];
+  displayedColumns = ['hour', 'time', 'subject', 'room', 'teacher', 'activityType'];
   dataSource :any;
 
   timetable: Timetable[];
