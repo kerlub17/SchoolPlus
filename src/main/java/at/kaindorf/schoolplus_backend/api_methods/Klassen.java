@@ -75,7 +75,7 @@ public class Klassen
           }
           
           String[] helper = response.toString().substring(response.toString().indexOf("[")+1,response.toString().indexOf("]")).replace("},{", "}#;#{").split("#;#");
-          
+
           List<Klasse> klassen = new LinkedList<>();
           for (int i = 0; i < helper.length; i++)
           {

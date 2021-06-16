@@ -6,6 +6,8 @@
 package at.kaindorf.schoolplus_backend.beans;
 
 import at.kaindorf.schoolplus_backend.SchoolPlusController;
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -20,9 +22,13 @@ public class Lesson
   private String date;
   private String startTime;
   private String endTime;
+  @JsonAlias("kl")
   private Klasse[] klasse;
+  @JsonAlias("te")
   private Person[] teacher;
+  @JsonAlias("su")
   private Subject[] subject;
+  @JsonAlias("ro")
   private Room[] room;
   private String activityType;
   
@@ -54,10 +60,7 @@ public class Lesson
       this.endTime = endTime;
     }
 
-    for (int i = 0; i < kl.length; i++)
-    {
-      klasse[i] = SchoolPlusController.getKlasseById(kl[i].getId());
-    }
+    klasse=kl;
 
     for (int i = 0; i < te.length; i++)
     {
@@ -74,6 +77,78 @@ public class Lesson
       room[i] = SchoolPlusController.getRoomById(ro[i].getId());
     }
 
+    this.activityType = activityType;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getDate() {
+    return date;
+  }
+
+  public String getStartTime() {
+    return startTime;
+  }
+
+  public String getEndTime() {
+    return endTime;
+  }
+
+  public Klasse[] getKlasse() {
+    return klasse;
+  }
+
+  public Person[] getTeacher() {
+    return teacher;
+  }
+
+  public Subject[] getSubject() {
+    return subject;
+  }
+
+  public Room[] getRoom() {
+    return room;
+  }
+
+  public String getActivityType() {
+    return activityType;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setDate(String date) {
+    this.date = date;
+  }
+
+  public void setStartTime(String startTime) {
+    this.startTime = startTime;
+  }
+
+  public void setEndTime(String endTime) {
+    this.endTime = endTime;
+  }
+
+  public void setKlasse(Klasse[] klasse) {
+    this.klasse = klasse;
+  }
+
+  public void setTeacher(Person[] teacher) {
+    this.teacher = teacher;
+  }
+
+  public void setSubject(Subject[] subject) {
+    this.subject = subject;
+  }
+
+  public void setRoom(Room[] room) {
+    this.room = room;
+  }
+
+  public void setActivityType(String activityType) {
     this.activityType = activityType;
   }
 

@@ -34,12 +34,12 @@ public class SchoolPlusController
   private static String sessionId;
 
   private static final String SCHOOL_DEFAULT="htbla_kaindorf";
-  private static final String USERNAME_DEFAULT="kerlub17";
-  private static final String PASSWORD_DEFAULT="oxpcasxu";
   
   private static String school = "null";
   private static String username = "null";
   private static String password = "null";
+  private static String klasse = "null";
+  private static String person = "null";
     
   private static List<Subject> subjects = new LinkedList<>();
   private static List<Person> teachers = new LinkedList<>();
@@ -135,8 +135,8 @@ public class SchoolPlusController
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/auth")
     public String auth(@RequestParam(value = "school", defaultValue = SCHOOL_DEFAULT) String school, 
-                       @RequestParam(value = "username", defaultValue = USERNAME_DEFAULT) String username, 
-                       @RequestParam(value = "password", defaultValue = PASSWORD_DEFAULT) String password)
+                       @RequestParam(value = "username", defaultValue = "null") String username,
+                       @RequestParam(value = "password", defaultValue = "null") String password)
     {
         if(!school.equals("null") && !username.equals("null") && !password.equals("null"))
         {
@@ -150,8 +150,15 @@ public class SchoolPlusController
 
             int help = output.indexOf("sessionId")+12;
             String sessionID = output.substring(help,help+32);
-            System.out.println(sessionID);
             this.sessionId=sessionID;
+
+            help = output.indexOf("klasseId")+10;
+            String klasse = output.substring(help,help+3);
+            this.klasse=klasse;
+
+            help = output.indexOf("personId")+10;
+            String person = output.substring(help,help+4);
+            this.person=person;
 
             //init
             getRooms();
@@ -209,7 +216,6 @@ public class SchoolPlusController
           {
             String[] help = teacherName.split(";");
             teachers.add(GetPerson.exec(counter.incrementAndGet(), school, sessionId, help[1], help[0], help[2], Integer.parseInt(help[3])));
-//            System.out.println(teachers.get(teachers.size()-1));
           }
           return "Got Teachers!";
         }
@@ -232,11 +238,6 @@ public class SchoolPlusController
             SchoolPlusController.setKlassen(new LinkedList<Klasse>());
             Klassen.exec(counter.incrementAndGet(), school, sessionId);
 
-//            for (Klasse klasse : klassen)
-//            {
-//              System.out.println(klasse);
-//            }
-
             return "Got Klassen!";
           }
           catch(Exception e)
@@ -257,11 +258,6 @@ public class SchoolPlusController
         {
           Rooms.exec(counter.incrementAndGet(), school, sessionId);
 
-//          for (Room room : rooms)
-//          {
-//            System.out.println(room);
-//          }
-
           return "Got Rooms";
         }
         catch(Exception e)
@@ -273,18 +269,13 @@ public class SchoolPlusController
     }
     
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/xyz")
-    public String timetable(@RequestParam(value = "klasse", defaultValue = "418") String klasse, 
-                            @RequestParam(value = "type", defaultValue = "1") String type, 
-                            @RequestParam(value = "date", defaultValue = "today") String date)
+    @GetMapping("/gettimetable")
+    public String timetable(@RequestParam(value = "date", defaultValue = "today") String date)
     {
-      System.out.println("1");
-      
-      if(!school.equals("null"))
+      if(!school.equals("null") && !klasse.equals("null"))
       {
         try
         {
-          System.out.println("2");
           if(date.equals("today") || date.length()<8)
           {
             date = LocalDate.now().getYear()+"";
@@ -302,12 +293,10 @@ public class SchoolPlusController
             date+=LocalDate.now().getDayOfMonth()+"";
           }
 
-          System.out.println("3");
+          String output = Day.exec(counter.incrementAndGet(), Integer.parseInt(klasse), Integer.parseInt("1"), date, school, sessionId);
 
-          System.out.println(date);
-          String output = Day.exec(counter.incrementAndGet(), Integer.parseInt(klasse), Integer.parseInt(type), date, school, sessionId);
-
-          return output;
+          ObjectMapper om = new ObjectMapper();
+          return om.writeValueAsString(day);
         }
         catch(Exception e)
         {
@@ -343,10 +332,17 @@ public class SchoolPlusController
             "  \"activityType\":\"Unterricht\"\n" +
             "}]";
   }
+
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/test2")
+  public String test2()
+  {
+    return "{\"id\":1029887,\"date\":20210616,\"startTime\":800,\"endTime\":850,\"kl\":[{\"id\":418}],\"te\":[{\"id\":100}],\"su\":[{\"id\":5}],\"ro\":[{\"id\":178}],\"activityType\":\"Unterricht\"}";
+  }
     
     @GetMapping("/error")
     public String error()
     {
-      return "upsi daisy";
+      return "an error occured";
     }
 }

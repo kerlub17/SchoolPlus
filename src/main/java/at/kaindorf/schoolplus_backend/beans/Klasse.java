@@ -41,7 +41,7 @@ public class Klasse
     this.id = id;
     this.name = name;
     this.longName = longName;
-    this.teacher1 = SchoolPlusController.getTeacherById(teacher1.getId());
+    this.teacher1 = teacher1;
     this.active = active;
     this.did = did;
   }
@@ -54,9 +54,10 @@ public class Klasse
     this.active = active;
     this.did = did;
   }
-  
+
   public Klasse(int id)
   {
+    System.out.println("asd");
     Klasse k = SchoolPlusController.getKlasseById(id);
     this.id = id;
     if(k!=null)

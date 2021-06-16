@@ -16,10 +16,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -79,18 +76,40 @@ public class Day
             response.append(responseLine.trim());
         }
 
-        System.out.println("hello");
         if(response.toString().split("\"result\":")[1].length()>5);
         {
-            System.out.println(12312351);
-          String[] helper = response.toString().substring(response.toString().indexOf("\"result\":")+10,response.toString().length()-2).replace("},{\"id\"","}#;#{\"id\"").split("#;#");
-          System.out.println(helper[0]);
+          String[] tokens = response.toString().substring(response.toString().indexOf("\"result\":") + 10, response.toString().length() - 2).replace("},{\"id\"", "}#;#{\"id\"").split("#;#");
+
+          List<String> helper = new LinkedList<>();
+          for (String token: tokens)
+          {
+            helper.add(token);
+          }
+
+          for (int i = 0; i < helper.size(); i++)
+            {
+              if(!helper.get(i).contains("activityType"))
+              {
+                  String str = helper.get(i);
+                  int j=i+1;
+                  String str2 = "";
+
+                  do
+                  {
+                      str2 = helper.get(j);
+                    str+=","+str2;
+                    helper.remove(j);
+                  }
+                  while(!str2.contains("activityType"));
+
+                  helper.set(i,str);
+              }
+            }
 
           List<Lesson> day = new LinkedList<>();
-          for (int i = 0; i < helper.length; i++)
+          for (int i = 0; i < helper.size(); i++)
           {
-            day.add(om.readValue(helper[i], Lesson.class));
-            System.out.println(day.get(i));
+            day.add(om.readValue(helper.get(i), Lesson.class));
           }
           SchoolPlusController.setDay(day);
         }
