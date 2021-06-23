@@ -8,7 +8,8 @@ package at.kaindorf.schoolplus_backend.beans;
 import at.kaindorf.schoolplus_backend.SchoolPlusController;
 
 /**
- *
+ * Beansklasse für das Objekt "Klasse".
+ * Ebenfalls wird hier das Mapping gehandelt, um über eine ID die ganze Klasse zu bekommen, mit allen Variablen.
  * @author Luca Kern BHIF17
  */
 public class Klasse
@@ -57,13 +58,14 @@ public class Klasse
 
   public Klasse(int id)
   {
-    System.out.println("asd");
     Klasse k = SchoolPlusController.getKlasseById(id);
     this.id = id;
     if(k!=null)
     {
       this.name = k.getName();
       this.longName = k.getLongName();
+      this.teacher1=k.getTeacher1();
+      this.teacher2=k.getTeacher2();
       this.active = k.isActive();
       this.did = k.getDid();
     }
@@ -71,6 +73,8 @@ public class Klasse
     {
       this.name = null;
       this.longName = null;
+      this.teacher1=null;
+      this.teacher2=null;
       this.active = false;
       this.did = 0;
     }

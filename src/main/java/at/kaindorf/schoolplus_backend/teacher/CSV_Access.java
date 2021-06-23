@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
+ * Macht den Zugriff auf die benötigten CSV-Dateien
  * @author Luca Kern BHIF17
  */
 public class CSV_Access
@@ -31,6 +31,13 @@ public class CSV_Access
           + "\\schoolplus_backend"
           + "\\teacher"
           + "\\KaindorfLehrer.csv";
+
+  /**
+   * Methode, um die Namen aller Lehrer der HTBLA Kaindorf zu bekommen.
+   * Ist ein WOrk-Around, da man als Schüler kein Zugriff auf die Lehrer der Schule hat.
+   * @return
+   * @throws FileNotFoundException
+   */
   public static List<String> getTeacherNames() throws FileNotFoundException
   {
     BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -44,18 +51,5 @@ public class CSV_Access
     }
     
     return help;
-  }
-  
-  public static void main(String[] args)
-  {
-    System.out.println(filename);
-    try
-    {
-      System.out.println(getTeacherNames().get(0));
-    }
-    catch(Exception e)
-    {
-      System.out.println(e);
-    }
   }
 }

@@ -25,7 +25,19 @@ import java.util.*;
 public class Day
 {
   private static HttpURLConnection con;
-  
+
+    /**
+     * Sendet einen HTTP-Post Request an die WebUntis-Api, und gibt das Ergebnis, in diesem Fall den Timetable eines Tages, zurück.
+     * @param id
+     * @param klasse
+     * @param type
+     * @param date
+     * @param school
+     * @param sessionId
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
   public static String exec(long id, int klasse, int type, String date, String school, String sessionId) throws IOException, InterruptedException
   {
       String url = "https://mese.webuntis.com/WebUntis/jsonrpc.do?school="+school;

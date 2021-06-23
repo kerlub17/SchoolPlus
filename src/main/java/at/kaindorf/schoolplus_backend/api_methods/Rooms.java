@@ -33,7 +33,17 @@ import java.util.List;
 public class Rooms
 {
     private static HttpURLConnection con;
-  
+
+    /**
+     * Sendet einen HTTP-Post Request an die WebUntis-Api,
+     * und gibt das Ergebnis, in diesem Fall eine Liste aller Räume der angegebenen Schule, zurück.
+     * @param id
+     * @param school
+     * @param sessionId
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public static String exec(long id, String school, String sessionId) throws IOException, InterruptedException
     {
         String url = "https://mese.webuntis.com/WebUntis/jsonrpc.do?school="+school;

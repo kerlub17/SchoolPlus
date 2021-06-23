@@ -32,7 +32,18 @@ import java.util.HashMap;
 public class Auth
 {
     private static HttpURLConnection con;
-  
+
+    /**
+     * Sendet einen HTTP-Post Request an die WebUntis-Api, und gibt das Ergebnis, in diesem FAll einen Auth-Token, zurück.
+     * Es wird ein Passwort, ein Username und eine Schule übergeben.
+     * @param id
+     * @param school
+     * @param username
+     * @param password
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public static String exec(long id, String school, String username, String password) throws IOException, InterruptedException
     {
         String url = "https://mese.webuntis.com/WebUntis/jsonrpc.do?school="+school;
@@ -84,25 +95,5 @@ public class Auth
           con.disconnect();
           return response.toString();
         }
-    }
-    
-    public static void main(String[] args)
-    {
-//      try
-//      {
-//        System.out.println(Auth.exec(77, "htbla_kaindorf", "kerlub17", "oxpcasxu"));
-//      }
-//      catch(Exception e)
-//      {
-//        System.out.println(e.toString());
-//      }
-      
-      Calendar c = Calendar.getInstance();
-      LocalDate help = LocalDate.now();
-      System.out.println(help.getDayOfWeek());
-//      Date date = new GregorianCalendar(help.getYear(), help.getMonth().getValue(), help.getDayOfMonth()).getTime();
-//      c.setTime(date);
-//      System.out.println(Calendar.SUNDAY);
-//      System.out.println(c.get(Calendar.DAY_OF_WEEK));
     }
 }

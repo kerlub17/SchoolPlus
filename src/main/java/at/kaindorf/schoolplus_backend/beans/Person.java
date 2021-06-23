@@ -8,7 +8,8 @@ package at.kaindorf.schoolplus_backend.beans;
 import at.kaindorf.schoolplus_backend.SchoolPlusController;
 
 /**
- *
+ * Beansklasse für das Objekt "Person".
+ * Ebenfalls wird hier das Mapping gehandelt, um über eine ID die ganze Person zu bekommen, mit allen Variablen.
  * @author Luca Kern BHIF17
  */
 public class Person

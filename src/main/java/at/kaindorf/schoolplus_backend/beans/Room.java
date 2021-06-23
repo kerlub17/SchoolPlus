@@ -8,7 +8,8 @@ package at.kaindorf.schoolplus_backend.beans;
 import at.kaindorf.schoolplus_backend.SchoolPlusController;
 
 /**
- *
+ * Beansklasse für das Objekt "Room".
+ * Ebenfalls wird hier das Mapping gehandelt, um über eine ID den ganzen Raum zu bekommen, mit allen Variablen.
  * @author Luca Kern BHIF17
  */
 public class Room
@@ -16,9 +17,18 @@ public class Room
   private int id;
   private String name;
   private String longName;
+  private int orgid=-1;
 
   public Room()
   {
+  }
+
+  public Room(int id, String name, String longName, int orgid)
+  {
+    this.id = id;
+    this.name = name;
+    this.longName = longName;
+    this.orgid = orgid;
   }
 
   public Room(int id, String name, String longName)
@@ -36,11 +46,13 @@ public class Room
     {
       this.longName = r.getLongName();
       this.name = r.getName();
+      this.orgid = r.getOrgid();
     }
     else
     {
       this.longName = null;
       this.name = null;
+      this.orgid = -1;
     }
   }
 
@@ -72,6 +84,14 @@ public class Room
   public void setLongName(String longName)
   {
     this.longName = longName;
+  }
+
+  public int getOrgid() {
+    return orgid;
+  }
+
+  public void setOrgid(int orgid) {
+    this.orgid = orgid;
   }
 
   @Override

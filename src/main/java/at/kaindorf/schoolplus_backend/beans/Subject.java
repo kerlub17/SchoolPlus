@@ -8,7 +8,8 @@ package at.kaindorf.schoolplus_backend.beans;
 import at.kaindorf.schoolplus_backend.SchoolPlusController;
 
 /**
- *
+ * Beansklasse für das Objekt "Subject".
+ * Ebenfalls wird hier das Mapping gehandelt, um über eine ID das ganze Fach zu bekommen, mit allen Variablen.
  * @author Luca Kern BHIF17
  */
 public class Subject

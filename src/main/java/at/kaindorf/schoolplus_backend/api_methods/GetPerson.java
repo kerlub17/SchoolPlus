@@ -29,7 +29,21 @@ import java.util.HashMap;
 public class GetPerson
 {
     private static HttpURLConnection con;
-  
+
+    /**
+     * Sendet einen HTTP-Post Request an die WebUntis-Api, und gibt das Ergebnis, in diesem Fall die ID einer Person, zurück.
+     * Diese Id holt man sich über den Name, das Geburtsdatum und den Type der Person (2=Teacher, 5=Student)
+     * @param id
+     * @param school
+     * @param sessionId
+     * @param fn
+     * @param sn
+     * @param dob
+     * @param type
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public static Person exec(long id, String school, String sessionId, String fn, String sn, String dob, int type) throws IOException, InterruptedException
     {
         String url = "https://mese.webuntis.com/WebUntis/jsonrpc.do?school="+school;

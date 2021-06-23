@@ -1,11 +1,6 @@
 package at.kaindorf.schoolplus_backend;
 
-import at.kaindorf.schoolplus_backend.api_methods.Auth;
-import at.kaindorf.schoolplus_backend.api_methods.GetPerson;
-import at.kaindorf.schoolplus_backend.api_methods.Klassen;
-import at.kaindorf.schoolplus_backend.api_methods.Rooms;
-import at.kaindorf.schoolplus_backend.api_methods.Subjects;
-import at.kaindorf.schoolplus_backend.api_methods.Day;
+import at.kaindorf.schoolplus_backend.api_methods.*;
 import at.kaindorf.schoolplus_backend.beans.Klasse;
 import at.kaindorf.schoolplus_backend.beans.Lesson;
 import at.kaindorf.schoolplus_backend.beans.Subject;
@@ -18,6 +13,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -27,6 +23,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Managed den ZUgriff auf die API und das Mapping für die verschiedenen Services des Programmes.
+ */
 @RestController
 public class SchoolPlusController
 {
@@ -72,7 +71,13 @@ public class SchoolPlusController
   {
     SchoolPlusController.day = day;
   }
-  
+
+  /**
+   * Damit ein Lehrer nur mit seiner ID herausgefunden werden kann.
+   * Man bekommt von der API nur die ID und über eine Liste und CSV kann man die dazugehörige Namen holen.
+   * @param id
+   * @return
+   */
   public static Person getTeacherById(int id)
   {
     for (Person teacher : teachers)
@@ -84,7 +89,13 @@ public class SchoolPlusController
     }
     return null;
   }
-  
+
+  /**
+   * Damit ein Lehrer nur mit seiner ID herausgefunden werden kann.
+   * Man bekommt von der API nur die ID und über eine Liste kann man die dazugehörige Werte bekommen.
+   * @param id
+   * @return
+   */
   public static Subject getSubjectById(int id)
   {
     for (Subject subject : subjects)
@@ -96,7 +107,13 @@ public class SchoolPlusController
     }
     return null;
   }
-  
+
+  /**
+   * Damit eine Klasse nur mit seiner ID herausgefunden werden kann.
+   * Man bekommt von der API nur die ID und über eine Liste kann man die dazugehörige Werte bekommen.
+   * @param id
+   * @return
+   */
   public static Klasse getKlasseById(int id)
   {
     for (Klasse klasse : klassen)
@@ -108,7 +125,13 @@ public class SchoolPlusController
     }
     return null;
   }
-  
+
+  /**
+   * Damit ein Raum nur mit seiner ID herausgefunden werden kann.
+   * Man bekommt von der API nur die ID und über eine Liste kann man die dazugehörige Werte bekommen.
+   * @param id
+   * @return
+   */
   public static Room getRoomById(int id)
   {
     for (Room room : rooms)
@@ -131,7 +154,35 @@ public class SchoolPlusController
         }
         return new Task(counter.incrementAndGet(), date);
     }
-    
+
+  /**
+   * Service-Mapping für die API-Methode und Klasse "Logout".
+   * @return
+   */
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/logout")
+  public String logout()
+  {
+    try
+    {
+      String output = Logout.exec(counter.incrementAndGet(), school, sessionId);
+
+      return output;
+    }
+    catch(Exception e)
+    {
+      System.out.println(e);
+    }
+    return error();
+  }
+
+  /**
+   * Service-Mapping für die API-Methode und Klasse "Auth".
+   * Ebenfalls werden andere Funktionen wie "getRooms", "getSubjects", "getTeachers" und "getKlassen" aufgerufen, um die Listen
+   * welche für dieses Programm benötigt werden, zu initialisieren.
+   * Ebenfalls holt man sich über den Response der API auch die SessionID, welche mfür die weiteren Zugriffe braucht.
+   * @return
+   */
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/auth")
     public String auth(@RequestParam(value = "school", defaultValue = SCHOOL_DEFAULT) String school, 
@@ -176,7 +227,11 @@ public class SchoolPlusController
         }
         return error(); 
     }
-    
+
+  /**
+   * Service-Mapping für die API-Methode und Klasse "Subjects".
+   * @return
+   */
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getsubjects")
     public String getSubjects()
@@ -188,11 +243,6 @@ public class SchoolPlusController
           SchoolPlusController.setSubjects(new LinkedList<Subject>());
           Subjects.exec(counter.incrementAndGet(), school, sessionId);
 
-//          for (Subject subject : subjects)
-//          {
-//            System.out.println(subject);
-//          }
-
           return "Got Subjects";
         }
         catch(Exception e)
@@ -202,7 +252,11 @@ public class SchoolPlusController
       }
       return error(); 
     }
-    
+
+  /**
+   * Service-Mapping für die API-Methode und Klasse "Teacher".
+   * @return
+   */
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getteachers")
     public String getTeachers()
@@ -226,7 +280,11 @@ public class SchoolPlusController
       }
       return error(); 
     }
-    
+
+  /**
+   * Service-Mapping für die API-Methode und Klasse "Klasse".
+   * @return
+   */
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getklassen")
     public String getKlassen()
@@ -247,7 +305,11 @@ public class SchoolPlusController
         }
         return error(); 
     }
-    
+
+  /**
+   * Service-Mapping für die API-Methode und Klasse "Room".
+   * @return
+   */
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getrooms")
     public String getRooms()
@@ -267,7 +329,11 @@ public class SchoolPlusController
       }
       return error(); 
     }
-    
+
+  /**
+   * Service-Mapping für die API-Methode und Klasse "Logout".
+   * @return
+   */
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/gettimetable")
     public String timetable(@RequestParam(value = "date", defaultValue = "today") String date)
@@ -295,8 +361,18 @@ public class SchoolPlusController
 
           String output = Day.exec(counter.incrementAndGet(), Integer.parseInt(klasse), Integer.parseInt("1"), date, school, sessionId);
 
-          ObjectMapper om = new ObjectMapper();
-          return om.writeValueAsString(day);
+          String str="[";
+          Collections.sort(day);
+
+          for (int i = 0; i < day.size(); i++)
+          {
+            str+=day.get(i);
+            if(i!=day.size()-1)
+            {
+              str+=",";
+            }
+          }
+          return str+"]";
         }
         catch(Exception e)
         {
@@ -306,6 +382,10 @@ public class SchoolPlusController
       return error(); 
     }
 
+  /**
+   * Wurde für anfängliche Tests verwendet.
+   * @return
+   */
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/test")
   public String test()
@@ -333,14 +413,23 @@ public class SchoolPlusController
             "}]";
   }
 
+  /**
+   * Wurde für anfängliche Tests verwendet.
+   * @return
+   */
   @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping("/test2")
   public String test2()
   {
     return "{\"id\":1029887,\"date\":20210616,\"startTime\":800,\"endTime\":850,\"kl\":[{\"id\":418}],\"te\":[{\"id\":100}],\"su\":[{\"id\":5}],\"ro\":[{\"id\":178}],\"activityType\":\"Unterricht\"}";
   }
-    
-    @GetMapping("/error")
+
+  /**
+   * Sollte irgendwo ein Fehler auftreten, wird diese FUnktion angesprochen.
+   * @return
+   */
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/error")
     public String error()
     {
       return "an error occured";

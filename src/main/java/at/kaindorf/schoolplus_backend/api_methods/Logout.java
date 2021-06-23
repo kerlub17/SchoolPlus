@@ -28,7 +28,16 @@ import java.util.HashMap;
 public class Logout
 {
     private static HttpURLConnection con;
-  
+
+    /**
+     * Sendet einen HTTP-Post Request an die WebUntis-Api, und meldet den vorher authentifizierten User wieder ab.
+     * @param id
+     * @param school
+     * @param sessionId
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public static String exec(long id, String school, String sessionId) throws IOException, InterruptedException
     {
         String url = "https://mese.webuntis.com/WebUntis/jsonrpc.do?school="+school;
