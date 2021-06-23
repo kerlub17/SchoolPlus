@@ -30,6 +30,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 //URL webuntis = new URL("https://mese.webuntis.com/WebUntis/jsonrpc.do?school=" + school);
+/**
+ *
+ * @author Luca Kern BHIF17
+ */
 public class Klassen
 {
     private static HttpURLConnection con;

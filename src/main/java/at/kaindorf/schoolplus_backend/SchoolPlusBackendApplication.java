@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Ist das Main des Programmes. Startet die Spring-Application an.
+ * @author Luca Kern BHIF17
  */
 @SpringBootApplication
 public class  SchoolPlusBackendApplication {

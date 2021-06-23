@@ -1,5 +1,9 @@
 package at.kaindorf.schoolplus_backend.beans;
 
+/**
+ *
+ * @author Luca Kern BHIF17
+ */
 public class Task
 {
     private final long id;

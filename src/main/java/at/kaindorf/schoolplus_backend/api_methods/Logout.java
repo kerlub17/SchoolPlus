@@ -25,6 +25,10 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 
 //URL webuntis = new URL("https://mese.webuntis.com/WebUntis/jsonrpc.do?school=" + school);
+/**
+ *
+ * @author Luca Kern BHIF17
+ */
 public class Logout
 {
     private static HttpURLConnection con;

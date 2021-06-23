@@ -29,6 +29,10 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 //URL webuntis = new URL("https://mese.webuntis.com/WebUntis/jsonrpc.do?school=" + school);
+/**
+ *
+ * @author Luca Kern BHIF17
+ */
 public class Auth
 {
     private static HttpURLConnection con;

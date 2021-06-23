@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Managed den ZUgriff auf die API und das Mapping für die verschiedenen Services des Programmes.
+ * @author Luca Kern BHIF17
  */
 @RestController
 public class SchoolPlusController
