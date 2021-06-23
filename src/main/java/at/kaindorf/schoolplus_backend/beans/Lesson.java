@@ -33,13 +33,14 @@ public class Lesson implements Comparable<Lesson>
   private Room[] room;
   private String activityType;
   private String code="null";
+  private String statflags="null";
   
  
   public Lesson()
   {
   }
 
-  public Lesson(int id, String date, String startTime, String endTime, Klasse[] kl, Person[] te, Subject[] su, Room[] ro, String activityType, String code)
+  public Lesson(int id, String date, String startTime, String endTime, Klasse[] kl, Person[] te, Subject[] su, Room[] ro, String activityType, String code, String statflags)
   {
     System.out.println(123);
     this.id = id;
@@ -83,6 +84,7 @@ public class Lesson implements Comparable<Lesson>
     this.activityType = activityType;
 
     this.code = code;
+    this.statflags = statflags;
   }
 
   //Ohne Code
@@ -246,6 +248,12 @@ public class Lesson implements Comparable<Lesson>
     this.code = code;
   }
 
+  public String getStatflags() {
+    return statflags;
+  }
+
+
+
   /**
    * Vereint das start und end Time einer Lesson in einen schönen String, welcher an das Frontend geliefert wird.
    * @return
@@ -264,7 +272,7 @@ public class Lesson implements Comparable<Lesson>
     str+=":";
     str+=endTime.substring(2);
 
-    return str;
+    return (!str.equals("")?str:"-");
   }
 
   /**
@@ -282,7 +290,7 @@ public class Lesson implements Comparable<Lesson>
       }
     }
 
-    return str;
+    return (!str.equals("")?str:"-");
   }
 
   /**
@@ -302,7 +310,7 @@ public class Lesson implements Comparable<Lesson>
       }
     }
 
-    return str;
+    return (!str.equals("")?str:"-");
   }
 
   /**
@@ -320,9 +328,63 @@ public class Lesson implements Comparable<Lesson>
       }
     }
 
-    return str;
+    return (!str.equals("")?str:"-");
   }
 
+  /**
+   * Fügt alle Fächernamen einer Lesson in einen String zusammen, welcher dan ans Frotnend geliefert wird.
+   * @return
+   */
+  public String getSubjectNamesLong()
+  {
+    String str = "";
+
+    for (int i = 0; i < subject.length; i++) {
+      str += subject[i].getLongName();
+      if (i != (subject.length - 1)) {
+        str += ", ";
+      }
+    }
+
+    return (!str.equals("")?str:"-");
+  }
+
+  /**
+   * Fügt alle Raumnamen einer Lesson in einen String zusammen, welcher dan ans Frotnend geliefert wird.
+   * @return
+   */
+  public String getRoomNames()
+  {
+    String str = "";
+
+    for (int i = 0; i < room.length; i++) {
+      str += room[i].getName();
+      if (i != (room.length - 1)) {
+        str += ", ";
+      }
+    }
+
+    return (!str.equals("")?str:"-");
+  }
+
+  /**
+   * Fügt alle Raumnamen einer Lesson in einen String zusammen, welcher dan ans Frotnend geliefert wird.
+   * @return
+   */
+  public String getRoomNamesLong()
+  {
+    String str = "";
+
+    for (int i = 0; i < room.length; i++) {
+      str += room[i].getLongName();
+      if (i != (room.length - 1)) {
+        str += ", ";
+      }
+    }
+
+
+    return (!str.equals("")?str:"-");
+  }
 
   /**
    * Erstellt ein schönes Jso-Objekt, mit welchem das Arbeiten im Frontend erleichtert wird und
@@ -334,7 +396,10 @@ public class Lesson implements Comparable<Lesson>
     return "{\n" +
             "  \"time\":\"" + fancyDate() + "\",\n" +
             "  \"subject\":\"" + getSubjectNames() + "\",\n" +
-            "  \"room\":\"4BHIF\",\n" +
+            "  \"subjectLong\":\"" + getSubjectNamesLong() + "\",\n" +
+            "  \"room\":\"" + getRoomNames() + "\",\n" +
+            "  \"roomLong\":\"" + getRoomNamesLong() + "\",\n" +
+            "  \"klassen\":\"" + getKlasseNames() + "\",\n" +
             "  \"teacher\":\"" + getTeacherNames() + "\",\n" +
             "  \"activityType\":\"" + activityType + (!code.equals("null")?(", " + code.toUpperCase()):"") + "\"\n" +
             "}\n";

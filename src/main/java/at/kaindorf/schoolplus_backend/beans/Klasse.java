@@ -21,6 +21,7 @@ public class Klasse
   private Person teacher2;
   private boolean active;
   private int did;
+  private int orgid=-1;
 
   public Klasse()
   {
@@ -35,6 +36,18 @@ public class Klasse
     this.teacher2 = teacher2;
     this.active = active;
     this.did = did;
+  }
+
+  public Klasse(int id, String name, String longName, Person teacher1, Person teacher2, boolean active, int did, int orgid)
+  {
+    this.id = id;
+    this.name = name;
+    this.longName = longName;
+    this.teacher1 = teacher1;
+    this.teacher2 = teacher2;
+    this.active = active;
+    this.did = did;
+    this.orgid = orgid;
   }
 
   public Klasse(int id, String name, String longName, Person teacher1, boolean active, int did)
@@ -68,6 +81,7 @@ public class Klasse
       this.teacher2=k.getTeacher2();
       this.active = k.isActive();
       this.did = k.getDid();
+      this.did = k.getOrgid();
     }
     else
     {
@@ -77,6 +91,7 @@ public class Klasse
       this.teacher2=null;
       this.active = false;
       this.did = 0;
+      this.orgid = -1;
     }
   }
 
@@ -150,8 +165,16 @@ public class Klasse
     this.did = did;
   }
 
-  
-  
+  public int getOrgid() {
+    return orgid;
+  }
+
+  public void setOrgid(int orgid) {
+    this.orgid = orgid;
+  }
+
+
+
   @Override
   public String toString()
   {

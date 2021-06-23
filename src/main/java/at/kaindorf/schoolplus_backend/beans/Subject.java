@@ -17,6 +17,7 @@ public class Subject
   private int id;
   private String name;
   private String longName;
+  private int orgid;
 
   public Subject()
   {
@@ -28,6 +29,14 @@ public class Subject
     this.name = name;
     this.longName = longName;
   }
+
+  public Subject(int id, String name, String longName, int orgid)
+  {
+    this.id = id;
+    this.name = name;
+    this.longName = longName;
+    this.orgid=orgid;
+  }
   
   public Subject(int id)
   {
@@ -37,11 +46,13 @@ public class Subject
     {
       this.longName = s.getLongName();
       this.name = s.getName();
+      this.orgid = s.getOrgid();
     }
     else
     {
       this.longName = null;
       this.name = null;
+      this.orgid = -1;
     }
   }
 
@@ -73,6 +84,14 @@ public class Subject
   public void setLongName(String longName)
   {
     this.longName = longName;
+  }
+
+  public int getOrgid() {
+    return orgid;
+  }
+
+  public void setOrgid(int orgid) {
+    this.orgid = orgid;
   }
 
   @Override

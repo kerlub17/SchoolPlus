@@ -19,6 +19,7 @@ public class Person
   private String fn;
   private String dob;
   private int type;
+  private int orgid=-1;
 
   public Person()
   {
@@ -40,6 +41,16 @@ public class Person
     this.dob = dob;
     this.type = type;
   }
+
+  public Person(int id, String sn, String fn, String dob, int type, int orgid)
+  {
+    this.id = id;
+    this.sn = sn;
+    this.fn = fn;
+    this.dob = dob;
+    this.type = type;
+    this.orgid = orgid;
+  }
   
   public Person(int id)
   {
@@ -51,6 +62,7 @@ public class Person
       this.fn = p.getFn();
       this.dob = p.getDob();
       this.type = p.getType();
+      this.orgid = p.getOrgid();
     }
     else
     {
@@ -58,6 +70,7 @@ public class Person
       this.fn = null;
       this.dob = null;
       this.type = 0;
+      this.orgid=-1;
     }
   }
 
@@ -109,6 +122,14 @@ public class Person
   public void setType(int type)
   {
     this.type = type;
+  }
+
+  public int getOrgid() {
+    return orgid;
+  }
+
+  public void setOrgid(int orgid) {
+    this.orgid = orgid;
   }
 
   @Override
