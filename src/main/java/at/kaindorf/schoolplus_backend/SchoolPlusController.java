@@ -24,7 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Managed den ZUgriff auf die API und das Mapping für die verschiedenen Services des Programmes.
+ * Managed den Zugriff auf die API und das Mapping für die verschiedenen Services des Programmes.
+ * Bildet die Schnittstelle zum Frontend von School+
  * @author Luca Kern BHIF17
  */
 @RestController
@@ -47,7 +48,9 @@ public class SchoolPlusController
   private static List<Room> rooms = new LinkedList<>();
   
   private static List<Lesson> day = new LinkedList<>();
-  
+
+  private static List<Task> tasks = new LinkedList<>();
+
   public static void setSubjects(List<Subject> subjects)
   {
     SchoolPlusController.subjects = subjects;
@@ -71,6 +74,11 @@ public class SchoolPlusController
   public static void setDay(List<Lesson> day)
   {
     SchoolPlusController.day = day;
+  }
+
+  public static void setTasks(List<Task> tasks)
+  {
+    SchoolPlusController.tasks = tasks;
   }
 
   /**
@@ -144,17 +152,114 @@ public class SchoolPlusController
     }
     return null;
   }
-  
+
+  /**
+   * Methode zum Anlegen eines neuen Tasks (Aufgabe).
+   * @param name
+   * @param subject
+   * @param date
+   * @param type
+   * @param done
+   * @param note
+   * @param time
+   * @return
+   */
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/task")
-    public Task aufgabe(@RequestParam(value = "date", defaultValue = "today") String date)
+    @GetMapping("/newtask")
+    public String newTask(@RequestParam(value = "name", defaultValue = "null") String name,
+                          @RequestParam(value = "subject", defaultValue = "null") String subject,
+                          @RequestParam(value = "date", defaultValue = "null") String date,
+                          @RequestParam(value = "type", defaultValue = "null") String type,
+                          @RequestParam(value = "done", defaultValue = "false") boolean done,
+                          @RequestParam(value = "note", defaultValue = "0") int note,
+                          @RequestParam(value = "time", defaultValue = "-1") int time)
     {
-        if(date.equals("today"))
+        try
         {
-            date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")).toString();
+          int id = 1;
+          if(tasks.size()!=0)
+          {
+            id = tasks.get(tasks.size()-1).getId()+1;
+          }
+
+          tasks.add(new Task(id,name,subject,date,type,done,note,time));
+          CSV_Access.writeTasks(tasks,username);
+
+          return "New Task added";
         }
-        return new Task(counter.incrementAndGet(), date);
+        catch(Exception e)
+        {
+          System.out.println(e);
+        }
+      return error();
     }
+
+  /**
+   * Gibtl alle TAsks für jeweiligen User zurück. Es kann auch gefiltert werden.
+   * @param name
+   * @param subject
+   * @param date
+   * @param type
+   * @param done
+   * @param note
+   * @param time
+   * @return
+   */
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/gettasks")
+  public String getTasks(@RequestParam(value = "name", defaultValue = "all") String name,
+                        @RequestParam(value = "subject", defaultValue = "all") String subject,
+                        @RequestParam(value = "date", defaultValue = "all") String date,
+                        @RequestParam(value = "type", defaultValue = "all") String type,
+                        @RequestParam(value = "done", defaultValue = "all") String done,
+                        @RequestParam(value = "note", defaultValue = "all") String note,
+                        @RequestParam(value = "time", defaultValue = "all") String time)
+  {
+    try
+    {
+      List<Task> output = new LinkedList<>(tasks);
+
+      if(!name.equals("all"))
+      {
+        output.removeIf(task -> !task.getName().contains(name));
+      }
+
+      if(!subject.equals("all"))
+      {
+        output.removeIf(task -> !task.getSubject().contains(subject));
+      }
+
+      if(!date.equals("all"))
+      {
+        output.removeIf(task -> !task.getDate().equals(date));
+      }
+
+      if(!type.equals("all"))
+      {
+        output.removeIf(task -> !task.getType().equals(type));
+      }
+
+      if(!done.equals("all"))
+      {
+        output.removeIf(task -> task.isDone()!=Boolean.parseBoolean(done));
+      }
+
+      if(!note.equals("all"))
+      {
+        output.removeIf(task -> task.getNote()!=Integer.parseInt(note));
+      }
+
+
+
+      ObjectMapper om = new ObjectMapper();
+      return om.writeValueAsString(tasks.toArray());
+    }
+    catch(Exception e)
+    {
+      System.out.println(e);
+    }
+    return error();
+  }
 
   /**
    * Service-Mapping für die API-Methode und Klasse "Logout".
@@ -217,6 +322,7 @@ public class SchoolPlusController
             getSubjects();
             getTeachers();
             getKlassen();
+            SchoolPlusController.setTasks(CSV_Access.getTasks(username));
             System.out.println("Initializied!");
 
             return output;
