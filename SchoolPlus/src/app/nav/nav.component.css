@@ -19,3 +19,16 @@
 .mat-toolbar-design {
   position: fixed;
 }
+
+hr {
+  height: 40px;
+  background-color: white;
+  margin: 10px;
+}
+
+.whiteIcon {
+  color: white;
+  border-color: white;
+}
+
+

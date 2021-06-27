@@ -4,25 +4,30 @@ import { Router } from "@angular/router";
 import {Observable} from "rxjs";
 import {GlobalVariables} from "../../global-variables";
 import {NgForm} from "@angular/forms";
+import { MatProgressSpinner} from "@angular/material/progress-spinner";
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent{
+export class LoginComponent implements OnInit{
 
   readonly ROOT_URL = 'http://localhost:8080/auth?';
 
   posts!: Object
   loggedInQuery: string = "";
   wrongInput: boolean = false;
+  isLoadingResults = false;
+
 
 
   constructor(private http: HttpClient, private router: Router) { }
 
   onLogin(values: any, form: NgForm)
   {
+    this.isLoadingResults = true;
     /*let gv = GlobalVariables.getInstance();*/
     console.warn(values.username)
     console.warn(values.password)
@@ -39,6 +44,7 @@ export class LoginComponent{
         //gv.status = false;
         localStorage.setItem('loggedIn', "false");
         form.resetForm();
+        this.isLoadingResults = false;
       }
       else
       {
@@ -48,10 +54,20 @@ export class LoginComponent{
         gv.status = true;*/
         localStorage.setItem('loggedIn', "true");
         //console.log(gv.status);
+        this.isLoadingResults = false;
         this.router.navigateByUrl('/home');
 
       }
     })
+  }
+
+  ngOnInit(): void {
+    if (!localStorage.getItem('refresh')) {
+      localStorage.setItem('refresh', 'no reload')
+      location.reload()
+    } else {
+      localStorage.removeItem('refresh')
+    }
   }
 
 }

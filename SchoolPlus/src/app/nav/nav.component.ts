@@ -46,5 +46,14 @@ export class NavComponent implements OnInit, AfterViewInit{
     localStorage.setItem('theme', this.isDarkTheme ? "Dark" : "Light");
   }
 
+  logout()
+  {
+    if(confirm("Do you really want to logout?")) {
+      localStorage.setItem('loggedIn', "false");
+      this.router.navigateByUrl('/login');
+    }
+
+  }
+
 
 }

@@ -22,9 +22,20 @@
       </button>
       <img src="assets\images\logo_white_large.png" width="150">
       <span style="flex:auto"></span>
+
+      <button class="whiteIcon" mat-stroked-button type="submit" style="border-color: white" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span class="logoutLabel">Logout</span>
+      </button>
+
+
+      <hr>
+
       <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before"  (change)="storeThemeSelection()">
         <mat-icon>bedtime</mat-icon>
       </mat-slide-toggle>
+
+
     </mat-toolbar>
 
 
