@@ -88,7 +88,7 @@ public class Day
             response.append(responseLine.trim());
         }
 
-        if(response.toString().split("\"result\":")[1].length()>5);
+        if(response.toString().split("\"result\":")[1].length()>5)
         {
           String[] tokens = response.toString().substring(response.toString().indexOf("\"result\":") + 10, response.toString().length() - 2).replace("},{\"id\"", "}#;#{\"id\"").split("#;#");
 
