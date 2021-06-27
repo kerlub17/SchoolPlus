@@ -19,17 +19,20 @@ import { TasksComponent } from './tasks/tasks.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { TimetableComponent } from './timetable/timetable.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import {FormsModule} from "@angular/forms";
-
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
+import {FlexModule} from "@angular/flex-layout";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
     TasksComponent,
-    TimetableComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,13 @@ import {FormsModule} from "@angular/forms";
     MatPaginatorModule,
     MatSortModule,
     MatSlideToggleModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    FlexModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

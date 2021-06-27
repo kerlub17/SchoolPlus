@@ -10,7 +10,7 @@ export class TimetableService {
   private timetableUrl: string;
 
   constructor(private http: HttpClient) {
-    this.timetableUrl = 'http://localhost:8080/timetable';
+    this.timetableUrl = 'http://localhost:8080/gettimetable';
   }
 
   public findAll(): Observable<Timetable[]> {

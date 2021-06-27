@@ -1,0 +1,12 @@
+.main-div mat-card{
+  padding: 0px;
+}
+
+.login-form{
+  padding: 20px;
+}
+
+.wrongInput{
+  color: red;
+  size: 2px;
+}

@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {TasksComponent} from "./tasks/tasks.component";
-import {TimetableComponent} from "./timetable/timetable.component";
+import {LoginComponent} from "./login/login.component";
+import {NavComponent} from "./nav/nav.component";
 
 const routes: Routes = [
   {path: 'home',component:HomeComponent},
   {path: 'tasks',component:TasksComponent},
-  {path: 'timetable',component:TimetableComponent},
-  {path: '**', redirectTo: '/home'}
+  {path: 'login',component:LoginComponent},
+  {path: 'nav', component:NavComponent},
+  {path: '**', redirectTo: '/login'}
+
 ];
 
 @NgModule({
