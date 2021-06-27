@@ -7,8 +7,7 @@
     <mat-nav-list>
       <a mat-list-item routerLink="/home">Übersicht</a>
       <a mat-list-item routerLink="/tasks">Aufgaben</a>
-      <a mat-list-item routerLink="/timetable">Stundenplan</a>
-    </mat-nav-list>
+   </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -20,7 +19,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>School+</span>
+      <img src="assets\images\logo_white_large.png" width="150">
       <span style="flex:auto"></span>
       <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before"  (change)="storeThemeSelection()">
         <mat-icon>bedtime</mat-icon>
