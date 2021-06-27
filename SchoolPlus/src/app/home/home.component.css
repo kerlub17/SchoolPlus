@@ -4,10 +4,7 @@
 
 .dashboard-card {
 
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+  margin: 5px;
 }
 
 .more-button {
@@ -31,13 +28,10 @@
 
 table {
   width: 100%;
+  border-spacing: 8px;
 }
 
-th {
-  position: fixed;
+td{
+  font-size: 12px;
 }
-/*
-.mat-table-sticky {
-  top:0px !important;
-}*/
 

@@ -1,2 +1,4 @@
-<app-nav></app-nav>
+<div style="height: 100%" *ngIf="isLoggedIn$">
+  <app-nav></app-nav>
+</div>
 <router-outlet></router-outlet>

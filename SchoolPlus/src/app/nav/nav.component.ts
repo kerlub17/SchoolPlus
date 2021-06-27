@@ -33,12 +33,12 @@ export class NavComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    this.isLoggedIn$ = this.gv.status;
+    /*this.isLoggedIn$ = this.gv.status;
     console.log(this.gv.status + "nav1");
     console.log(this.isLoggedIn$);
     this.cdRef.detectChanges();
     if (this.isLoggedIn$)
-    {this.router.navigateByUrl('/home');}
+    {this.router.navigateByUrl('/home');}*/
 
   }
 

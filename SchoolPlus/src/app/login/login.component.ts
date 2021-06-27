@@ -23,7 +23,7 @@ export class LoginComponent{
 
   onLogin(values: any, form: NgForm)
   {
-    let gv = GlobalVariables.getInstance();
+    /*let gv = GlobalVariables.getInstance();*/
     console.warn(values.username)
     console.warn(values.password)
 
@@ -36,17 +36,19 @@ export class LoginComponent{
       {
         console.log("nope");
         this.wrongInput = true;
-        gv.status = false;
+        //gv.status = false;
+        localStorage.setItem('loggedIn', "false");
         form.resetForm();
       }
       else
       {
         console.log("yes");
         this.wrongInput = false;
-        console.log(gv.status);
-        gv.status = true;
-        console.log(gv.status);
-        this.router.navigateByUrl('/nav');
+        /*console.log(gv.status);
+        gv.status = true;*/
+        localStorage.setItem('loggedIn', "true");
+        //console.log(gv.status);
+        this.router.navigateByUrl('/home');
 
       }
     })

@@ -21,6 +21,14 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit() {
+
+    if (!localStorage.getItem('foo')) {
+      localStorage.setItem('foo', 'no reload')
+      location.reload()
+    } else {
+      localStorage.removeItem('foo')
+    }
+
     this.timetableService.findAll().subscribe(value => {
       this.timetable = value;
       console.log(this.timetable);
