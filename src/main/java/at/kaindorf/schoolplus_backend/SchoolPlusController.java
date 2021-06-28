@@ -168,9 +168,9 @@ public class SchoolPlusController
                           @RequestParam(value = "subject", defaultValue = "null") String subject,
                           @RequestParam(value = "date", defaultValue = "null") String date,
                           @RequestParam(value = "type", defaultValue = "null") String type,
-                          @RequestParam(value = "done", defaultValue = "false") boolean done,
+                          @RequestParam(value = "done", defaultValue = "false") String done,
                           @RequestParam(value = "note", defaultValue = "0") int note,
-                          @RequestParam(value = "time", defaultValue = "-1") int time)
+                          @RequestParam(value = "time", defaultValue = "0") int time)
     {
         try
         {
@@ -180,10 +180,18 @@ public class SchoolPlusController
             id = tasks.get(tasks.size()-1).getId()+1;
           }
 
-          tasks.add(new Task(id,name,subject,date,type,done,note,time));
+          if(date.contains("."))
+          {
+            String tokens[] = date.split(".");
+            date = tokens[2]+tokens[1]+tokens[0];
+          }
+
+          done=(done.toLowerCase().equals("ja")?"true":"false");
+
+          tasks.add(new Task(id,name,subject,date,type,Boolean.parseBoolean(done),note,time));
           CSV_Access.writeTasks(tasks,username);
 
-          return "New Task added";
+          return "Success - New Task added!";
         }
         catch(Exception e)
         {
@@ -318,11 +326,11 @@ public class SchoolPlusController
       }
       if(!check)
       {
-        return "Task does not exist";
+        return "Error - Task with the id " + id + " does not exist";
       }
       CSV_Access.writeTasks(tasks,username);
 
-      return "Task with the id " + id + " has been removed!";
+      return "Success - Task with the id " + id + " has been removed!";
     }
     catch(Exception e)
     {
@@ -356,64 +364,61 @@ public class SchoolPlusController
   {
     try
     {
-      if(id!=-1)
+      int index = -1;
+      for (int i = 0; i < tasks.size(); i++)
       {
-        int index = -1;
-        for (int i = 0; i < tasks.size(); i++)
+        if(tasks.get(i).getId()==id)
         {
-          if(tasks.get(i).getId()==id)
-          {
-            index = i;
-            break;
-          }
+          index = i;
+          break;
+        }
+      }
+
+      if(index==-1)
+      {
+        return "Error - Task with the id " + id + " does not exist";
+      }
+      else
+      {
+        Task t =  tasks.get(index);
+        if(!name.equals("null"))
+        {
+          t.setName(name);
         }
 
-        if(index==-1)
+        if(!subject.equals("null"))
         {
-          return "Task does not exist";
+          t.setSubject(subject);
         }
-        else
+
+        if(!date.equals("null"))
         {
-          Task t =  tasks.get(index);
-          if(!name.equals("null"))
-          {
-            t.setName(name);
-          }
-
-          if(!subject.equals("null"))
-          {
-            t.setSubject(subject);
-          }
-
-          if(!date.equals("null"))
-          {
-            t.setDate(date);
-          }
-
-          if(!type.equals("null"))
-          {
-            t.setType(type);
-          }
-
-          if(!done.equals("null"))
-          {
-            t.setDone(Boolean.parseBoolean(done));
-          }
-
-          if(!note.equals("null"))
-          {
-            t.setNote(Integer.parseInt(note));
-          }
-
-          if(!time.equals("null"))
-          {
-            t.setTime(Integer.parseInt(time));
-          }
-
-          tasks.set(index,t);
-          CSV_Access.writeTasks(tasks,username);
-          return "Task with the id " + id + " has been updated!";
+          t.setDate(date);
         }
+
+        if(!type.equals("null"))
+        {
+          t.setType(type);
+        }
+
+        if(!done.equals("null"))
+        {
+          t.setDone(Boolean.parseBoolean(done));
+        }
+
+        if(!note.equals("null"))
+        {
+          t.setNote(Integer.parseInt(note));
+        }
+
+        if(!time.equals("null"))
+        {
+          t.setTime(Integer.parseInt(time));
+        }
+
+        tasks.set(index,t);
+        CSV_Access.writeTasks(tasks,username);
+        return "Success - Task with the id " + id + " has been updated!";
       }
     }
     catch(Exception e)
@@ -455,7 +460,7 @@ public class SchoolPlusController
             this.klasse=klasse;
 
             help = output.indexOf("personId")+10;
-            String person = output.substring(help,help+4);
+            String person = output.substring(help,help+4).replace("\"","").trim();
             this.person=person;
 
             //init
@@ -590,7 +595,12 @@ public class SchoolPlusController
       {
         try
         {
-          if(date.equals("today") || date.length()<8)
+          if(date.contains("."))
+          {
+            String tokens[] = date.split(".");
+            date = tokens[2]+tokens[1]+tokens[0];
+          }
+          else if(date.equals("today") || date.length()<8)
           {
             date = LocalDate.now().getYear()+"";
 
