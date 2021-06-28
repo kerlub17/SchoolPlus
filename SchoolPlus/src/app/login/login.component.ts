@@ -68,6 +68,8 @@ export class LoginComponent implements OnInit{
     } else {
       localStorage.removeItem('refresh')
     }
+
+    console.log(localStorage.getItem('loggedOutText'));
   }
 
 }
