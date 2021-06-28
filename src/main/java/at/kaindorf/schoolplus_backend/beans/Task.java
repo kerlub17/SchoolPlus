@@ -1,5 +1,7 @@
 package at.kaindorf.schoolplus_backend.beans;
 
+import java.sql.SQLOutput;
+
 /**
  *
  * @author Luca Kern BHIF17
@@ -115,8 +117,42 @@ public class Task implements Comparable<Task>
         return id+";"+name+";"+subject+";"+date+";"+type+";"+done+";"+note+";"+time;
     }
 
+    public String fancyDate()
+    {
+        try
+        {
+            return date.substring(6)+"."+ date.substring(4,6)+"."+ date.substring(0,4);
+        }
+        catch(Exception e)
+        {
+            return date;
+        }
+    }
+
+    public String fancyDone()
+    {
+        return (done?"JA":"NEIN");
+    }
+
+    public String toFrontend()
+    {
+        return "{\n" +
+                "  \"id\":\"" + id + "\",\n" +
+                "  \"name\":\"" + name + "\",\n" +
+                "  \"subject\":\"" + subject + "\",\n" +
+                "  \"date\":\"" + fancyDate() + "\",\n" +
+                "  \"type\":\"" + type + "\",\n" +
+                "  \"done\":\"" + fancyDone() + "\",\n" +
+                "  \"note\":\"" + note + "\",\n" +
+                "  \"time\":\"" + time + "\"\n" +
+                "}\n";
+    }
+
     @Override
-    public int compareTo(Task o) {
+    public int compareTo(Task o)
+    {
         return this.getDate().compareTo(o.getDate());
     }
+
+
 }

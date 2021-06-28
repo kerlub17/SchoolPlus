@@ -7,12 +7,10 @@ import at.kaindorf.schoolplus_backend.beans.Subject;
 import at.kaindorf.schoolplus_backend.beans.Task;
 import at.kaindorf.schoolplus_backend.beans.Person;
 import at.kaindorf.schoolplus_backend.beans.Room;
-import at.kaindorf.schoolplus_backend.teacher.CSV_Access;
+import at.kaindorf.schoolplus_backend.bl.CSV_Access;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.DayOfWeek;
+
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -249,10 +247,22 @@ public class SchoolPlusController
         output.removeIf(task -> task.getNote()!=Integer.parseInt(note));
       }
 
+      if(!time.equals("all"))
+      {
+        output.removeIf(task -> (task.getTime()<Integer.parseInt(time)-30 || task.getTime()>Integer.parseInt(time)+30));
+      }
 
-
-      ObjectMapper om = new ObjectMapper();
-      return om.writeValueAsString(tasks.toArray());
+      String str="[";
+      //Collections.sort(tasks);
+      for (int i = 0; i < tasks.size(); i++)
+      {
+        str+=tasks.get(i).toFrontend();
+        if(i!=tasks.size()-1)
+        {
+          str+=",";
+        }
+      }
+      return str+"]";
     }
     catch(Exception e)
     {
@@ -260,6 +270,8 @@ public class SchoolPlusController
     }
     return error();
   }
+
+
 
   /**
    * Service-Mapping für die API-Methode und Klasse "Logout".
@@ -274,6 +286,135 @@ public class SchoolPlusController
       String output = Logout.exec(counter.incrementAndGet(), school, sessionId);
 
       return output;
+    }
+    catch(Exception e)
+    {
+      System.out.println(e);
+    }
+    return error();
+  }
+
+  /**
+   * Methode zum Löschen eines bereits existierenden Tasks
+   * @param id
+   * @return
+   */
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/removetask")
+  public String removeTask(@RequestParam(value = "id", defaultValue = "-1") int id)
+  {
+    try
+    {
+      boolean check = false;
+
+      for (int i = 0; i < tasks.size(); i++)
+      {
+        if(tasks.get(i).getId() == id)
+        {
+          tasks.remove(i);
+          check = true;
+          break;
+        }
+      }
+      if(!check)
+      {
+        return "Task does not exist";
+      }
+      CSV_Access.writeTasks(tasks,username);
+
+      return "Task with the id " + id + " has been removed!";
+    }
+    catch(Exception e)
+    {
+      System.out.println(e);
+    }
+    return error();
+  }
+
+  /**
+   * Methode zum Updaten eines bereits existierenden Tasks
+   * @param id
+   * @param name
+   * @param subject
+   * @param date
+   * @param type
+   * @param done
+   * @param note
+   * @param time
+   * @return
+   */
+  @CrossOrigin(origins = "http://localhost:4200")
+  @GetMapping("/updatetask")
+  public String updateTask(@RequestParam(value = "id", defaultValue = "-1") int id,
+                         @RequestParam(value = "name", defaultValue = "null") String name,
+                         @RequestParam(value = "subject", defaultValue = "null") String subject,
+                         @RequestParam(value = "date", defaultValue = "null") String date,
+                         @RequestParam(value = "type", defaultValue = "null") String type,
+                         @RequestParam(value = "done", defaultValue = "null") String done,
+                         @RequestParam(value = "note", defaultValue = "null") String note,
+                         @RequestParam(value = "time", defaultValue = "null") String time)
+  {
+    try
+    {
+      if(id!=-1)
+      {
+        int index = -1;
+        for (int i = 0; i < tasks.size(); i++)
+        {
+          if(tasks.get(i).getId()==id)
+          {
+            index = i;
+            break;
+          }
+        }
+
+        if(index==-1)
+        {
+          return "Task does not exist";
+        }
+        else
+        {
+          Task t =  tasks.get(index);
+          if(!name.equals("null"))
+          {
+            t.setName(name);
+          }
+
+          if(!subject.equals("null"))
+          {
+            t.setSubject(subject);
+          }
+
+          if(!date.equals("null"))
+          {
+            t.setDate(date);
+          }
+
+          if(!type.equals("null"))
+          {
+            t.setType(type);
+          }
+
+          if(!done.equals("null"))
+          {
+            t.setDone(Boolean.parseBoolean(done));
+          }
+
+          if(!note.equals("null"))
+          {
+            t.setNote(Integer.parseInt(note));
+          }
+
+          if(!time.equals("null"))
+          {
+            t.setTime(Integer.parseInt(time));
+          }
+
+          tasks.set(index,t);
+          CSV_Access.writeTasks(tasks,username);
+          return "Task with the id " + id + " has been updated!";
+        }
+      }
     }
     catch(Exception e)
     {

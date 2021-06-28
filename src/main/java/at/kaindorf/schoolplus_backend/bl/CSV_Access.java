@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package at.kaindorf.schoolplus_backend.teacher;
+package at.kaindorf.schoolplus_backend.bl;
 
 import at.kaindorf.schoolplus_backend.beans.Task;
 
@@ -32,7 +32,7 @@ public class CSV_Access
           + "\\at"
           + "\\kaindorf"
           + "\\schoolplus_backend"
-          + "\\teacher"
+          + "\\bl"
           + "\\";
 
   /**
