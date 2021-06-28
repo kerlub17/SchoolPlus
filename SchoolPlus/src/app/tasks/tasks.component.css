@@ -1,3 +1,22 @@
 .grid-container {
   margin: 20px;
 }
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 12.5%;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+  margin: 20px;
+}
