@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -658,10 +659,13 @@ public class SchoolPlusController
 
           for (int i = 0; i < day.size(); i++)
           {
-            str+=day.get(i);
-            if(i!=day.size()-1)
+            if(!day.get(i).getCode().toUpperCase().equals("CANCELLED"))
             {
-              str+=",";
+              str+=day.get(i);
+              if(i!=day.size()-1)
+              {
+                str+=",";
+              }
             }
           }
           return str+"]";
