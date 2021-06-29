@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit{
 
   readonly ROOT_URL = 'http://localhost:8080/auth?';
 
-  posts!: Object
-  loggedInQuery: string = "";
+  posts!: Object;
+  loggedInQuery: string = "error";
   wrongInput: boolean = false;
   isLoadingResults = false;
 
@@ -70,6 +70,10 @@ export class LoginComponent implements OnInit{
     }
 
     console.log(localStorage.getItem('loggedOutText'));
+    if(this.loggedInQuery.includes("error"))
+    {
+      localStorage.setItem('loggedIn', "false");
+    }
   }
 
 }

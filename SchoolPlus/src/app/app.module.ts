@@ -27,6 +27,16 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { LoginComponent } from './login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
+import { NewtaskComponent } from './newtask/newtask.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
+
 
 @NgModule({
   declarations: [
@@ -34,7 +44,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NavComponent,
     HomeComponent,
     TasksComponent,
-    LoginComponent
+    LoginComponent,
+    NewtaskComponent
   ],
   imports: [
     BrowserModule,
@@ -53,13 +64,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatPaginatorModule,
     MatSortModule,
     MatSlideToggleModule,
+    MatDialogModule,
     FormsModule,
     HttpClientModule,
     FlexModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatCheckboxModule
 
   ],
   providers: [],

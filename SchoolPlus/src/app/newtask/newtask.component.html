@@ -1,0 +1,47 @@
+<form fxLayoutAlign="stretch" fxLayout="column" class="newtask-form" #newTaskForm="ngForm" (ngSubmit)="onNewTask(newTaskForm.value, newTaskForm)">
+  <mat-form-field>
+    <input matInput type="text" ngModel name="name" placeholder="Name" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" ngModel name="fach" placeholder="Fach" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Abgabedatum auswählen</mat-label>
+    <input matInput [matDatepicker]="picker" ngModel name="datum" placeholder="Datum" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker  #picker disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Art</mat-label>
+    <mat-select [(ngModel)]="selectedArt" name="art" placeholder="Art" required>
+      <mat-option *ngFor="let art of arts" [value]="art.value">
+        {{art.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Erledigt</mat-label>
+    <mat-select [(ngModel)]="selectedDone" name="done" placeholder="Done" required>
+      <mat-option *ngFor="let doneOption of done" [value]="doneOption.value">
+        {{doneOption.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Note</mat-label>
+    <mat-select [(ngModel)]="selectedNote" name="note" placeholder="Note" required>
+      <mat-option *ngFor="let noteOption of note" [value]="noteOption.value">
+        {{noteOption.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" ngModel name="zeit" placeholder="Zeit(min)" required>
+  </mat-form-field>
+
+  <button *ngIf="newTaskForm.valid else buttonDisabled " color="primary" mat-raised-button type="submit">Erstellen</button>
+  <ng-template #buttonDisabled><button disabled color="primary" mat-raised-button type="submit" >Erstellen</button></ng-template>
+
+  <button color="accent" mat-raised-button type="reset">Reset</button>
+
+</form>

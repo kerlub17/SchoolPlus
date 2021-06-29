@@ -13,7 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $SchoolPlus-primary: mat-palette($mat-purple, 500);
-$SchoolPlus-accent: mat-palette($mat-pink);
+$SchoolPlus-accent: mat-palette($mat-deep-purple, 200);
 $SchoolPlus-warn: mat-palette($mat-red);
 
 
