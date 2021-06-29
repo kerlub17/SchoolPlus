@@ -7,6 +7,7 @@ package at.kaindorf.schoolplus_backend.beans;
 
 import at.kaindorf.schoolplus_backend.SchoolPlusController;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,6 +35,9 @@ public class Lesson implements Comparable<Lesson>
   private String activityType;
   private String code="null";
   private String statflags="null";
+
+  @JsonIgnore
+  private String index="null";
   
  
   public Lesson()
@@ -252,13 +256,19 @@ public class Lesson implements Comparable<Lesson>
     return statflags;
   }
 
+  public String getIndex() {
+    return index;
+  }
 
+  public void setIndex(String index) {
+    this.index = index;
+  }
 
   /**
    * Vereint das start und end Time einer Lesson in einen schönen String, welcher an das Frontend geliefert wird.
    * @return
    */
-  public String fancyDate()
+  public String fancyTime()
   {
     String str="";
 
@@ -394,7 +404,8 @@ public class Lesson implements Comparable<Lesson>
   @Override
   public String toString() {
     return "{\n" +
-            "  \"time\":\"" + fancyDate() + "\",\n" +
+            "  \"index\":\"" + index + "\",\n" +
+            "  \"time\":\"" + fancyTime() + "\",\n" +
             "  \"subject\":\"" + getSubjectNames() + "\",\n" +
             "  \"subjectLong\":\"" + getSubjectNamesLong() + "\",\n" +
             "  \"room\":\"" + getRoomNames() + "\",\n" +
@@ -402,6 +413,20 @@ public class Lesson implements Comparable<Lesson>
             "  \"klassen\":\"" + getKlasseNames() + "\",\n" +
             "  \"teacher\":\"" + getTeacherNames() + "\",\n" +
             "  \"activityType\":\"" + activityType + (!code.equals("null")?(", " + code.toUpperCase()):"") + "\"\n" +
+            "}\n";
+  }
+
+  public static String freistunde(String t) {
+    return "{\n" +
+            "  \"index\":\"" + SchoolPlusController.getLessonIndices().get(t) + "\",\n" +
+            "  \"time\":\"" + t + "\",\n" +
+            "  \"subject\":\"" + "-" + "\",\n" +
+            "  \"subjectLong\":\"" + "-" + "\",\n" +
+            "  \"room\":\"" + "-" + "\",\n" +
+            "  \"roomLong\":\"" + "-" + "\",\n" +
+            "  \"klassen\":\"" + "-" + "\",\n" +
+            "  \"teacher\":\"" + "-" + "\",\n" +
+            "  \"activityType\":\"" + (SchoolPlusController.getLessonIndices().get(t).equals("Pause")?SchoolPlusController.getLessonIndices().get(t):"Freistunde") + "\"\n" +
             "}\n";
   }
 

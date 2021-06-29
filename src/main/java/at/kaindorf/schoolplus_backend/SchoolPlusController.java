@@ -11,10 +11,7 @@ import at.kaindorf.schoolplus_backend.bl.CSV_Access;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -49,6 +46,28 @@ public class SchoolPlusController
   private static List<Lesson> day = new LinkedList<>();
 
   private static List<Task> tasks = new LinkedList<>();
+
+  private static Map<String,String> lessonIndices = new TreeMap<>();
+  private static void fillLessonIndices()
+  {
+    lessonIndices.put("07:10 - 08:00","0");
+    lessonIndices.put("08:00 - 08:50","1");
+    lessonIndices.put("08:50 - 09:40","2");
+    lessonIndices.put("09:40 - 10:30","3");
+    lessonIndices.put("10:30 - 10:45","Pause");
+    lessonIndices.put("10:45 - 11:35","4");
+    lessonIndices.put("11:35 - 12:25","5");
+    lessonIndices.put("12:25 - 13:15","6");
+    lessonIndices.put("13:15 - 14:00","7");
+    lessonIndices.put("14:00 - 14:45","8");
+    lessonIndices.put("14:45 - 14:50","Pause");
+    lessonIndices.put("14:50 - 15:35","9");
+    lessonIndices.put("15:35 - 16:20","10");
+  }
+
+  public static Map<String, String> getLessonIndices() {
+    return lessonIndices;
+  }
 
   public static void setSubjects(List<Subject> subjects)
   {
@@ -504,6 +523,7 @@ public class SchoolPlusController
             getTeachers();
             getKlassen();
             SchoolPlusController.setTasks(CSV_Access.getTasks(username));
+            fillLessonIndices();
             System.out.println("Initializied!");
 
             return output;
@@ -687,11 +707,40 @@ public class SchoolPlusController
 
           String output = Day.exec(counter.incrementAndGet(), Integer.parseInt(klasse), Integer.parseInt("1"), date, school, sessionId);
 
+          for (int i = 0; i <  day.size(); i++)
+          {
+            day.get(i).setIndex(lessonIndices.get(day.get(i).fancyTime()));
+          }
+
           String str="[";
           Collections.sort(day);
-
+          int index = -1;
           for (int i = 0; i < day.size(); i++)
           {
+            if(day.get(i).getStartTime().equals("1045") || day.get(i).getStartTime().equals("1450"))
+            {
+              str+=Lesson.freistunde(day.get(i).getStartTime().equals("1045")?"10:30 - 10:45":"14:45 - 14:50");
+              str+=",";
+            }
+            else if((Integer.parseInt(day.get(i).getIndex())-index)>1)
+            {
+              for (String help:lessonIndices.keySet())
+              {
+                if(lessonIndices.get(help).equals("Pause"))
+                {
+                  continue;
+                }
+                if(Integer.parseInt(lessonIndices.get(help))==(index+1))
+                {
+                  str+=Lesson.freistunde(help);
+                  break;
+                }
+              }
+              str+=",";
+
+            }
+            index=Integer.parseInt(day.get(i).getIndex());
+
             if(!day.get(i).getCode().toUpperCase().equals("CANCELLED"))
             {
               str+=day.get(i);
