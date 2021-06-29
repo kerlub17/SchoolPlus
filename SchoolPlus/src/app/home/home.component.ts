@@ -5,6 +5,8 @@ import {TimetableService} from "../services/timetable.service";
 import {Timetable} from "../beans/timetable";
 import {GlobalVariables} from "../../global-variables";
 import {NavComponent} from "../nav/nav.component";
+import {Task} from "../beans/task";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -13,11 +15,16 @@ import {NavComponent} from "../nav/nav.component";
 })
 export class HomeComponent implements OnInit{
 
-  displayedColumns = ['hour', 'time', 'subject', 'room', 'teacher', 'activityType'];
+  private taskUrl!: string;
+  displayedColumns = ['index', 'time', 'subject', 'room', 'teacher', 'activityType'];
+  displayedColumnsTasks = ['name', 'subject', 'date', 'type', 'done', 'note', 'time'];
   timetable: Timetable[];
+  tasktable: Task[];
 
-  constructor(private timetableService: TimetableService) {
-    this.timetable = [];
+  constructor(private timetableService: TimetableService, private http: HttpClient) {
+    this.timetable = []
+    this.tasktable = []
+    this.taskUrl = 'http://localhost:8080/gettasks?date=today';
   }
 
   ngOnInit() {
@@ -33,6 +40,10 @@ export class HomeComponent implements OnInit{
       this.timetable = value;
       console.log(this.timetable);
     })
+
+    this.http.get<Task[]>(this.taskUrl).subscribe(value => {
+      this.tasktable = value;
+    });
   }
 
 

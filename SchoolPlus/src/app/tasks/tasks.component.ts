@@ -14,7 +14,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 })
 export class TasksComponent implements OnInit {
 //"id":9,"name":"mathe-HÜ","subject":"Mathe","date":"20210630","type":"Hausaufgabe","done":false,"note":0,"time":120
-  displayedColumns = ['id', 'name', 'subject', 'date', 'type', 'done', 'note', 'time'];
+  displayedColumns = ['name', 'subject', 'date', 'type', 'done', 'note', 'time', 'actions'];
   tasktable: Task[];
   dataSource!: MatTableDataSource<Task>;
   date: string = "";
@@ -52,5 +52,12 @@ export class TasksComponent implements OnInit {
     this.router.navigateByUrl('/newtask');
   }
 
+  edit(element: Object) {
+
+  }
+
+  delete(element: Object) {
+
+  }
 }
 

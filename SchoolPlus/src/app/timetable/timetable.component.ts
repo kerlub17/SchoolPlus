@@ -11,7 +11,7 @@ import {HttpClient} from "@angular/common/http";
 export class TimetableComponent implements OnInit{
 
   private timetableUrl!: string;
-  displayedColumns = ['hour', 'time', 'subject', 'room', 'teacher', 'activityType'];
+  displayedColumns = ['index', 'time', 'subject', 'room', 'teacher', 'activityType'];
   timetable: Timetable[];
 
   constructor(private http: HttpClient) {
