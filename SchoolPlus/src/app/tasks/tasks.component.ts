@@ -6,6 +6,7 @@ import {MatSort} from "@angular/material/sort";
 import {TasksService} from "../services/tasks.service";
 import {Task} from "../beans/task";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-tasks',
@@ -18,12 +19,14 @@ export class TasksComponent implements OnInit {
   tasktable: Task[];
   dataSource!: MatTableDataSource<Task>;
   date: string = "";
+  posts!: Object;
+  readonly ROOT_URL = 'http://localhost:8080/removetask?id=';
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private taskService: TasksService, private dialog: MatDialog, private router: Router) {
+  constructor(private taskService: TasksService, private dialog: MatDialog, private router: Router, private http: HttpClient) {
     this.tasktable = [];
 
   }
@@ -47,16 +50,18 @@ export class TasksComponent implements OnInit {
     }
   }
 
-  createTask()
-  {
+  createTask() {
     this.router.navigateByUrl('/newtask');
   }
 
-  edit(element: Object) {
+  onDelete(element: Object) {
+    if(confirm("Diese Aufgabe wirklich löschen?")) {
+      this.http.get(this.ROOT_URL + element).subscribe(value => {
+        this.posts = value;
+      });
 
-  }
-
-  delete(element: Object) {
+      window.location.reload();
+    }
 
   }
 }
