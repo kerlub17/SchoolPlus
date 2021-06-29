@@ -121,7 +121,7 @@ public class Task implements Comparable<Task>
     {
         try
         {
-            return date.substring(6)+"."+ date.substring(4,6)+"."+ date.substring(0,4);
+            return date.substring(0,4)+"."+ date.substring(4,6)+"."+ date.substring(6);
         }
         catch(Exception e)
         {
