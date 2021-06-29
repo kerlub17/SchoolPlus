@@ -5,6 +5,7 @@ import {TasksComponent} from "./tasks/tasks.component";
 import {LoginComponent} from "./login/login.component";
 import {NavComponent} from "./nav/nav.component";
 import {NewtaskComponent} from "./newtask/newtask.component";
+import {TimetableComponent} from "./timetable/timetable.component";
 
 const routes: Routes = [
   {path: 'home',component:HomeComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'login',component:LoginComponent},
   {path: 'nav', component:NavComponent},
   {path: 'newtask',component:NewtaskComponent},
+  {path: 'timetable', component:TimetableComponent},
   {path: '**', redirectTo: '/login'}
 
 ];

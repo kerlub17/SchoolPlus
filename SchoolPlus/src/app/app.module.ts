@@ -34,6 +34,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { TimetableComponent } from './timetable/timetable.component';
 
 
 
@@ -45,7 +46,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     HomeComponent,
     TasksComponent,
     LoginComponent,
-    NewtaskComponent
+    NewtaskComponent,
+    TimetableComponent
   ],
   imports: [
     BrowserModule,
