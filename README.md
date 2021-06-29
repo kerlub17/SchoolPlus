@@ -19,6 +19,8 @@ Es müssen also beide Branches in seperate Projekte geklont werden.
 
 4. Danach sollte eigentlich alles selbsterklärend sein.
 
+5. Nach einigen min wird man von der Datenbank automatisch abgemeldet, und es werden keine Daten mehr angezeigt. Sollte das passieren, bitte einfach den "Logout"-Button betätigen, und erneut Anmelden.
+
 P.S.: Nachdem wir unsere Anwendung natürlich nur mit Schüler-Usern und den dazugehörigen Rechten testen konnten,
       wissen wir nicht genau wie gut die Anwendung funktioniert, sollte man sich mit einem Lehrer-User mit mehr Rechten einloggen.
       Aus genau diesem Grund hier meine User-Daten, um die Anwendung testen zu können: 
