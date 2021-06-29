@@ -464,6 +464,46 @@ public class SchoolPlusController
 
         if(!date.equals("null"))
         {
+          if(date.contains(" "))
+          {
+            //Thu%20Jun%2010%202021%2000:00:00%20GMT+0200%20(Mitteleurop%C3%A4ische%20Sommerzeit)
+            String tokens[] = date.split(" ");
+            switch(tokens[1])
+            {
+              case "Jan": tokens[1]="01";
+                break;
+              case "Feb": tokens[1]="02";
+                break;
+              case "Mar": tokens[1]="03";
+                break;
+              case "Apr": tokens[1]="04";
+                break;
+              case "May": tokens[1]="05";
+                break;
+              case "Jun": tokens[1]="06";
+                break;
+              case "Jul": tokens[1]="07";
+                break;
+              case "Aug": tokens[1]="08";
+                break;
+              case "Sep": tokens[1]="09";
+                break;
+              case "Oct": tokens[1]="10";
+                break;
+              case "Nov": tokens[1]="11";
+                break;
+              case "Dec": tokens[1]="12";
+                break;
+            }
+
+            if(tokens[2].length()==1)
+            {
+              tokens[2]="0"+tokens[2];
+            }
+
+            date=tokens[3]+tokens[1]+tokens[2];
+          }
+
           t.setDate(date);
         }
 
@@ -474,6 +514,7 @@ public class SchoolPlusController
 
         if(!done.equals("null"))
         {
+          done=(done.toLowerCase().equals("ja")?"true":"false");
           t.setDone(Boolean.parseBoolean(done));
         }
 
