@@ -291,7 +291,24 @@ public class SchoolPlusController
 
       if(!date.equals("all"))
       {
-        output.removeIf(task -> !task.getDate().equals(date));
+        if(date.equals("today"))
+        {
+          date = LocalDate.now().getYear()+"";
+
+          if(LocalDate.now().getMonthValue()<10)
+          {
+            date+="0";
+          }
+          date+=LocalDate.now().getMonthValue()+"";
+
+          if(LocalDate.now().getDayOfMonth()<10)
+          {
+            date+="0";
+          }
+          date+=LocalDate.now().getDayOfMonth()+"";
+        }
+        final String temp = date;
+        output.removeIf(task -> !task.getDate().equals(temp));
       }
 
       if(!type.equals("all"))
@@ -316,10 +333,10 @@ public class SchoolPlusController
 
       String str="[";
       //Collections.sort(tasks);
-      for (int i = 0; i < tasks.size(); i++)
+      for (int i = 0; i < output.size(); i++)
       {
-        str+=tasks.get(i).toFrontend();
-        if(i!=tasks.size()-1)
+        str+=output.get(i).toFrontend();
+        if(i!=output.size()-1)
         {
           str+=",";
         }
@@ -714,13 +731,15 @@ public class SchoolPlusController
 
           String str="[";
           Collections.sort(day);
-          int index = -1;
+          int index = 0;
+          String count = "";
           for (int i = 0; i < day.size(); i++)
           {
-            if(day.get(i).getStartTime().equals("1045") || day.get(i).getStartTime().equals("1450"))
+            if((day.get(i).getStartTime().equals("1045") && !count.contains("1045")) || (day.get(i).getStartTime().equals("1450") && !count.contains("1450")))
             {
               str+=Lesson.freistunde(day.get(i).getStartTime().equals("1045")?"10:30 - 10:45":"14:45 - 14:50");
               str+=",";
+              count+=day.get(i).getStartTime();
             }
             else if((Integer.parseInt(day.get(i).getIndex())-index)>1)
             {
