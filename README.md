@@ -19,10 +19,10 @@ Es müssen also beide Branches in seperate Projekte geklont werden.
 
 4. Danach sollte eigentlich alles selbsterklärend sein.
 
-P.S.: Nachdem wir unsere Anwendung natürlich nur mit Schüler-Usern und den dazugehörigen Rechten testen konnten
-      wissen wir nicht genau wie gut die Anwendung funktioniert, sollte man sich mit einem Lehrer-User mit mehr Rechten einloggen
+P.S.: Nachdem wir unsere Anwendung natürlich nur mit Schüler-Usern und den dazugehörigen Rechten testen konnten,
+      wissen wir nicht genau wie gut die Anwendung funktioniert, sollte man sich mit einem Lehrer-User mit mehr Rechten einloggen.
       Aus genau diesem Grund hier meine User-Daten, um die Anwendung testen zu können: 
 
-username: "kerlub17";
-passwort: "oxpcasxu";
+username: "kerlub17"
+passwort: "oxpcasxu"
 +++
