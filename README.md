@@ -23,6 +23,6 @@ P.S.: Nachdem wir unsere Anwendung natürlich nur mit Schüler-Usern und den daz
       wissen wir nicht genau wie gut die Anwendung funktioniert, sollte man sich mit einem Lehrer-User mit mehr Rechten einloggen
       Aus genau diesem Grund hier meine User-Daten, um die Anwendung testen zu können: 
 
-username: "kerlub17"
-passwort: "oxpcasxu"
+username: "kerlub17";
+passwort: "oxpcasxu";
 +++
