@@ -23,7 +23,7 @@ export class TasksComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private taskService: TasksService, private dialog: MatDialog) {
+  constructor(private taskService: TasksService, private dialog: MatDialog, private router: Router) {
     this.tasktable = [];
 
   }
@@ -49,7 +49,7 @@ export class TasksComponent implements OnInit {
 
   createTask()
   {
-    //this.dialog.open()
+    this.router.navigateByUrl('/newtask');
   }
 
 }

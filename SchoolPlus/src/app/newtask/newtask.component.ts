@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-newtask',
@@ -11,7 +12,7 @@ export class NewtaskComponent implements OnInit {
 
   readonly ROOT_URL = 'http://localhost:8080/newtask?';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   selectedArt!: string;
   selectedDone!: string;
@@ -34,7 +35,7 @@ export class NewtaskComponent implements OnInit {
     { id: 3, value: 3 },
     { id: 4, value: 4 },
     { id: 5, value: 5 },
-    { id: 6, value: 0 },]
+    { id: 6, value: 0},]
 
   onNewTask(values: any, form: NgForm) {
     this.http.get(this.ROOT_URL + 'name=' + values.name.toString()
@@ -46,14 +47,15 @@ export class NewtaskComponent implements OnInit {
       + '&time=' + values.zeit.toString()).subscribe(value => {
       this.posts = value;
     })
+    this.router.navigateByUrl('/tasks');
   }
 
   ngOnInit() {
 
   }
 
-  onClear() {
-
+  onCancel() {
+    this.router.navigateByUrl('/tasks');
   }
 
 
