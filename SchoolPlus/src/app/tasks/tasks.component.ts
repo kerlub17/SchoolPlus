@@ -1,4 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+/**
+ *
+ * @author Daniel Moucha
+ */
+
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -31,6 +36,10 @@ export class TasksComponent implements OnInit {
 
   }
 
+  /**
+   * durch http-request an backend alle tasks bekommen + sortieren & paginator
+   */
+
   ngOnInit(): void {
     this.taskService.findAll().subscribe(value => {
       this.tasktable = value;
@@ -41,6 +50,12 @@ export class TasksComponent implements OnInit {
     })
   }
 
+
+  /**
+   * tasks auf eingegeben filter überprüfen
+   * @param event
+   */
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,10 +65,19 @@ export class TasksComponent implements OnInit {
     }
   }
 
+  /**
+   * navigieren zur seite für das Erstellen eines neuen Tasks
+   */
+
   createTask() {
     this.router.navigateByUrl('/newtask');
   }
 
+  /**
+   * confirm dialog für delete --> anschließend Funktion 'deletetasks' mit id des tasks vom backend per http-request ansprechen,
+   * um den task zu löschen
+   * @param element
+   */
   onDelete(element: Object) {
     if(confirm("Diese Aufgabe wirklich löschen?")) {
       this.http.get(this.ROOT_URL + element).subscribe(value => {
@@ -64,6 +88,18 @@ export class TasksComponent implements OnInit {
     }
 
   }
+
+  /**
+   * navigieren zur seite für das bearbeiten eines Tasks mit übergebenen Werten
+   * @param id
+   * @param name
+   * @param subject
+   * @param date
+   * @param type
+   * @param done
+   * @param note
+   * @param time
+   */
 
   //l.id, l.name, l.subject, l.date, l.type, l.done, l.note, l.time
   onUpdate(id: Object, name: Object, subject: Object, date: Object, type: Object, done: Object, note: Object, time: Object,) {

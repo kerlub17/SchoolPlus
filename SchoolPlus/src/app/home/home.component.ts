@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Daniel Moucha
+ */
+
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
@@ -26,6 +31,10 @@ export class HomeComponent implements OnInit{
     this.tasktable = []
     this.taskUrl = 'http://localhost:8080/gettasks?date=today';
   }
+
+  /**
+   * get data for timetable from service and reload
+   */
 
   ngOnInit() {
 

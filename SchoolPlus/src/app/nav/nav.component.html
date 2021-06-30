@@ -1,3 +1,5 @@
+<!-- @author Daniel Moucha -->
+<!-- Benutzeroberfläche der Navigation-Bar-->
 <mat-sidenav-container class="sidenav-container mat-app-background" [ngClass]="{'dark-theme-mode': isDarkTheme}">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"

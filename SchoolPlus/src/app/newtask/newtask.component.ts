@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Daniel Moucha
+ */
+
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
@@ -20,6 +25,9 @@ export class NewtaskComponent implements OnInit {
   posts!: Object;
   taskQuery: String = "";
 
+  /**
+   * Felder für die dropdown-menüs
+   */
 
   arts = [
     { id: 1, value: "Aufgabe" },
@@ -40,6 +48,12 @@ export class NewtaskComponent implements OnInit {
     { id: 5, value: 5 },
     { id: 6, value: 0},]
 
+  /**
+   * Values aus newtask.component.html holen und damit einen http-request ans backend senden, um einen neuen task anzulegen
+   * @param values
+   * @param form
+   */
+
   onNewTask(values: any, form: NgForm) {
     this.http.get(this.ROOT_URL + 'name=' + values.name.toString()
       + '&subject=' + values.fach.toString()
@@ -56,6 +70,10 @@ export class NewtaskComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  /**
+   * Beim Klick auf den Cancel-Button zurück zu den tasks navigieren
+   */
 
   onCancel() {
     this.router.navigateByUrl('/tasks');

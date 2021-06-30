@@ -1,7 +1,12 @@
+/**
+ * Service um durch einen http-request ans backend alle tasks zu bekommen
+ * (wird in `tasks.component.ts' aufgerufen)
+ * @author Daniel Moucha
+ */
+
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Timetable} from "../beans/timetable";
 import {Task} from "../beans/task";
 
 @Injectable({

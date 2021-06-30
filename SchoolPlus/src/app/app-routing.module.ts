@@ -4,6 +4,11 @@ import {HomeComponent} from "./home/home.component";
 import {TasksComponent} from "./tasks/tasks.component";
 import {LoginComponent} from "./login/login.component";
 import {NavComponent} from "./nav/nav.component";
+/**
+ * Klasse zum erstellen aller Paths zum navigieren im Browser
+ * @author Daniel Moucha
+ */
+
 import {NewtaskComponent} from "./newtask/newtask.component";
 import {TimetableComponent} from "./timetable/timetable.component";
 import {UpdatetaskComponent} from "./updatetask/updatetask.component";

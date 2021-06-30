@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+/**
+ * Service um durch einen http-request ans backend alle schulstunden zu bekommen
+ * @author Daniel Moucha
+ */
+
 import {Observable} from "rxjs";
 import {Timetable} from "../beans/timetable";
 

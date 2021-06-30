@@ -1,3 +1,8 @@
+/**
+ * Module-Klasse zum Einbinden aller benötigten von Angular bereitgestellten Module
+ * @author Daniel Moucha
+ */
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -38,7 +43,9 @@ import { TimetableComponent } from './timetable/timetable.component';
 import { UpdatetaskComponent } from './updatetask/updatetask.component';
 
 
-
+/**
+ * Declaration meiner erstellten Klassen sowie importierenv aller Module
+ */
 
 @NgModule({
   declarations: [

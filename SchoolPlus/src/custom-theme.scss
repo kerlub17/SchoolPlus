@@ -1,24 +1,16 @@
+/**
+* Klasse zum erstellen der Farbschemas (werden auch für Dark-/Light-Mode benöitgt)
+* @author Daniel Moucha
+*/
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
+//light-theme
 $SchoolPlus-primary: mat-palette($mat-purple, 500);
 $SchoolPlus-accent: mat-palette($mat-deep-purple, 200);
 $SchoolPlus-warn: mat-palette($mat-red);
 
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
 $SchoolPlus-theme: mat-light-theme((
   color: (
     primary: $SchoolPlus-primary,
@@ -27,10 +19,6 @@ $SchoolPlus-theme: mat-light-theme((
   )
 ));
 
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include angular-material-theme($SchoolPlus-theme);
 
 //dark theme

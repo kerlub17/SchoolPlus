@@ -57,6 +57,12 @@ export class UpdatetaskComponent implements OnInit {
     { id: 5, value: 5 },
     { id: 6, value: 0},]
 
+  /**
+   * Task mit neu übergebenen Werten updaten
+   * @param values
+   * @param form
+   */
+
   onUpdateTask(values: any, form: NgForm) {
     this.http.get(this.ROOT_URL + 'id=' + this.newid
       + '&name=' + values.name.toString()
@@ -70,6 +76,10 @@ export class UpdatetaskComponent implements OnInit {
     })
     this.router.navigateByUrl('/tasks');
   }
+
+  /**
+   * holen der aktuellen Werte des Tasks um sie in der html-form beim ansurfen bereits anzuzeigen
+   */
 
   ngOnInit() {
     this.newid = localStorage.getItem('id');
@@ -140,6 +150,10 @@ export class UpdatetaskComponent implements OnInit {
     this.dateToPass = date;
   }
 
+
+  /**
+   * Beim Klick auf den Button 'cancel' zurück zu den tasks navigieren
+   */
   onCancel() {
     this.router.navigateByUrl('/tasks');
   }

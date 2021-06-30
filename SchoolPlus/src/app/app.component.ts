@@ -7,6 +7,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent{
   title = 'SchoolPlus';
+
+  /**
+   * überprüfen ob User eingeloggt ist, um navbar anzuzeigen
+   */
+
   query = localStorage.getItem('loggedIn');
   isLoggedIn$: boolean = (this.query === 'true');
 

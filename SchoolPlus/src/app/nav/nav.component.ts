@@ -1,9 +1,12 @@
+/**
+ *
+ * @author Daniel Moucha
+ */
+
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
-
 
 import { map, shareReplay } from 'rxjs/operators';
 import {GlobalVariables} from "../../global-variables";
@@ -14,7 +17,7 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit, AfterViewInit{
+export class NavComponent implements OnInit{
 
   readonly ROOT_URL = 'http://localhost:8080/logout';
   logoutText!: Object;
@@ -34,19 +37,16 @@ export class NavComponent implements OnInit, AfterViewInit{
 
   }
 
-  ngAfterViewInit(): void {
-    /*this.isLoggedIn$ = this.gv.status;
-    console.log(this.gv.status + "nav1");
-    console.log(this.isLoggedIn$);
-    this.cdRef.detectChanges();
-    if (this.isLoggedIn$)
-    {this.router.navigateByUrl('/home');}*/
-
-  }
-
+  /**
+   * zum Speichern des Status vom DarkTheme
+   */
   storeThemeSelection(){
     localStorage.setItem('theme', this.isDarkTheme ? "Dark" : "Light");
   }
+
+  /**
+   * einen http-request an das backend senden, um den user auszuloggen - danach zum login-Fenser navigieren
+   */
 
   logout()
   {
