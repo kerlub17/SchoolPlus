@@ -5,7 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {TasksService} from "../services/tasks.service";
 import {Task} from "../beans/task";
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import { MatDialog } from '@angular/material/dialog';
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -26,7 +26,7 @@ export class TasksComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private taskService: TasksService, private dialog: MatDialog, private router: Router, private http: HttpClient) {
+  constructor(private taskService: TasksService, public dialog: MatDialog, private router: Router, private http: HttpClient) {
     this.tasktable = [];
 
   }
@@ -62,6 +62,21 @@ export class TasksComponent implements OnInit {
 
       window.location.reload();
     }
+
+  }
+
+  //l.id, l.name, l.subject, l.date, l.type, l.done, l.note, l.time
+  onUpdate(id: Object, name: Object, subject: Object, date: Object, type: Object, done: Object, note: Object, time: Object,) {
+    localStorage.setItem('id', id.toString());
+    localStorage.setItem('name', name.toString());
+    localStorage.setItem('subject', subject.toString());
+    localStorage.setItem('date', date.toString());
+    localStorage.setItem('type', type.toString());
+    localStorage.setItem('done', done.toString());
+    localStorage.setItem('note', note.toString());
+    localStorage.setItem('time', time.toString());
+
+    this.router.navigateByUrl('/updatetask');
 
   }
 }

@@ -59,5 +59,4 @@ export class NewtaskComponent implements OnInit {
   }
 
 
-
 }

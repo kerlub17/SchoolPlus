@@ -35,6 +35,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TimetableComponent } from './timetable/timetable.component';
+import { UpdatetaskComponent } from './updatetask/updatetask.component';
 
 
 
@@ -47,7 +48,8 @@ import { TimetableComponent } from './timetable/timetable.component';
     TasksComponent,
     LoginComponent,
     NewtaskComponent,
-    TimetableComponent
+    TimetableComponent,
+    UpdatetaskComponent
   ],
   imports: [
     BrowserModule,

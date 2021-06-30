@@ -1,0 +1,60 @@
+<div fxLayoutAlign="center center">
+  <mat-card fxFlex="40" >
+    <form fxLayoutAlign="stretch" fxLayout="column" class="newtask-form" #newTaskForm="ngForm" (ngSubmit)="onUpdateTask(newTaskForm.value, newTaskForm)">
+      <div class="col-md-6">
+        <mat-toolbar color="primary">Aufgabe erstellen</mat-toolbar>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput type="text" ngModel name="name"  placeholder="NVS-Cheatsheet" [(ngModel)]="newname" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Fach</mat-label>
+          <input matInput type="text" ngModel name="fach" placeholder="NVS" [(ngModel)]="newsubject" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Abgabedatum auswählen</mat-label>
+          <input matInput [matDatepicker]="picker"  [(ngModel)]="dateToPass" name="datum" placeholder="Datum" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker  #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Art</mat-label>
+          <mat-select  name="art" placeholder="Art" [(ngModel)]="typeString" required>
+            <mat-option *ngFor="let art of arts" [value]="art.value">
+              {{art.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Erledigt</mat-label>
+          <mat-select  name="done" placeholder="Done" [(ngModel)]="doneString"required>
+            <mat-option *ngFor="let doneOption of done" [value]="doneOption.value">
+              {{doneOption.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Note</mat-label>
+          <mat-select  name="note" placeholder="Note" [(ngModel)]="noteNumber"required>
+            <mat-option *ngFor="let noteOption of note" [value]="noteOption.value">
+              {{noteOption.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Zeit(min)</mat-label>
+          <input matInput type="text" ngModel name="zeit" placeholder="60" [(ngModel)]="newtime" required>
+        </mat-form-field>
+
+        <button *ngIf="newTaskForm.valid else buttonDisabled " color="primary" mat-raised-button type="submit">Aktualisieren</button>
+        <ng-template #buttonDisabled><button disabled color="primary" mat-raised-button type="submit" >Aktualisieren</button></ng-template>
+
+        <button color="accent" mat-raised-button type="reset">Reset</button>
+
+        <button color="warn" mat-raised-button type="submit" (click)="onCancel()">Abbrechen</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

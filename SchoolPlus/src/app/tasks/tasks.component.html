@@ -58,12 +58,12 @@
 
       <ng-container [matColumnDef]="'actions'">
         <th mat-header-cell *matHeaderCellDef> actions </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let l">
           <div class="actionButton">
-            <button class="actionButton" mat-icon-button>
+            <button class="actionButton" mat-icon-button (click)="onUpdate(l.id, l.name, l.subject, l.date, l.type, l.done, l.note, l.time)">
               <mat-icon mat-icon-button color='primary'>edit</mat-icon>
             </button>
-            <button class="actionButton" mat-icon-button (click)="onDelete(element.id)">
+            <button class="actionButton" mat-icon-button (click)="onDelete(l.id)">
               <mat-icon mat-icon-button color="warn">delete</mat-icon>
             </button>
           </div>
