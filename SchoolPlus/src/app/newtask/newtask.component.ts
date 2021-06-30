@@ -22,8 +22,11 @@ export class NewtaskComponent implements OnInit {
 
 
   arts = [
-    { id: 1, value: 'Aufgabe' },
-    { id: 2, value: 'Test' }];
+    { id: 1, value: "Aufgabe" },
+    { id: 2, value: "Test" },
+    { id: 1, value: "Schularbeit" },
+    { id: 1, value: "PLF" },
+    { id: 1, value: "Stunden-WH" }];
 
   done = [
     { id: 1, value: 'nein' },

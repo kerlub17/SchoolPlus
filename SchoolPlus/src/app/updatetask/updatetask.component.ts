@@ -39,12 +39,15 @@ export class UpdatetaskComponent implements OnInit {
   dateToPass!: Date;
 
   arts = [
-    { id: 1, value: 'Aufgabe' },
-    { id: 2, value: 'Test' }];
+    { id: 1, value: "Aufgabe" },
+    { id: 2, value: "Test" },
+    { id: 1, value: "Schularbeit" },
+    { id: 1, value: "PLF" },
+    { id: 1, value: "Stunden-WH" },];
 
   done = [
-    { id: 1, value: 'nein' },
-    { id: 2, value: 'ja' }];
+    { id: 1, value: "nein" },
+    { id: 2, value: "ja" }];
 
   note: Note[] = [
     { id: 1, value: 1 },
@@ -99,29 +102,39 @@ export class UpdatetaskComponent implements OnInit {
         break;
     }
 
-    switch(this.newtype)
+    switch(this.newtype?.toLowerCase())
     {
       case "aufgabe":
         this.typeNumber = 0;
         break;
-      case "Test":
+      case "test":
         this.typeNumber = 1;
+        break;
+      case "schularbeit":
+        this.typeNumber = 2;
+        break;
+      case "plf":
+        this.typeNumber = 3;
+        break;
+      case "stunden-wh":
+        this.typeNumber = 4;
         break;
     }
 
-    switch(this.newdone)
+    switch(this.newdone?.toUpperCase())
     {
       case "NEIN":
-        this.typeNumber = 0;
+        this.doneNumber = 0;
         break;
       case "JA":
-        this.typeNumber = 1;
+        this.doneNumber = 1;
         break;
     }
 
     this.noteNumber = this.note[this.noteNumber].value;
     this.typeString = this.arts[this.typeNumber].value;
     this.doneString = this.done[this.doneNumber].value;
+    console.log(this.doneString);
     this.newdate2 = this.newdate?.replace('.', '/').replace('.', '/');
     let date = new Date("" + this.newdate2);
     this.dateToPass = date;
