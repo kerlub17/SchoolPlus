@@ -4,7 +4,7 @@
   <mat-card fxFlex="40" >
     <form fxLayoutAlign="stretch" fxLayout="column" class="newtask-form" #newTaskForm="ngForm" (ngSubmit)="onUpdateTask(newTaskForm.value, newTaskForm)">
       <div class="col-md-6">
-        <mat-toolbar color="primary">Aufgabe erstellen</mat-toolbar>
+        <mat-toolbar color="primary">Aufgabe bearbeiten</mat-toolbar>
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput type="text" ngModel name="name"  placeholder="NVS-Cheatsheet" [(ngModel)]="newname" required>
